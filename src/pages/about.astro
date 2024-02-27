@@ -1,0 +1,25 @@
+---
+import PageLayout from "@/layouts/Base.astro";
+import { Image } from "astro:assets";
+import aboutImg from "./about.jpg";
+
+const meta = {
+	description: "Felix, an indie developer who builds with web technologies.",
+	title: "About",
+};
+---
+
+<PageLayout meta={meta}>
+	<div class="space-y-6">
+		<h1 class="title">About</h1>
+		<p>Hi, I’m Felix. I'm an indie developer and I build with web technologies.</p>
+		<div class="flex justify-center">
+			<Image
+				alt="Felix admiring a Chinese hotpot"
+				fetchpriority="high"
+				loading="eager"
+				src={aboutImg}
+			/>
+		</div>
+	</div>
+</PageLayout>
