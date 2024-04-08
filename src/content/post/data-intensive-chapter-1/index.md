@@ -1,16 +1,13 @@
 ---
-title: "TL;DR: Designing Data-Intensive Applications"
-description: "My learning notes from the book Designing Data-Intensive Applications by Martin Kleppmann"
-publishDate: "26 Feb 2024"
-# updatedDate: "14 August 2023"
+title: "TL;DR: Designing Data-Intensive Applications - Chapter 1"
+description: "My learning notes of Chapter 1 from the book Designing Data-Intensive Applications by Martin Kleppmann"
+publishDate: "6 April 2024"
 coverImage:
-  src: "./cover.jpg"
+  src: "../data-intensive-cover.jpg"
   alt: "Designing Data-Intensive Applications"
-tags: ["books", "systems", "learning-notes", "tl;dr", "draft"]
-draft: true
+ogImage: "../data-intensive-cover.jpg"
+tags: ["books", "systems", "learning-notes", "data-intensive", "tl;dr"]
 ---
-
-This is my learning notes from the book [Designing Data-Intensive Applications](https://dataintensive.net/) by Martin Kleppmann.
 
 ## Chapter 1: Reliable, Scalable, and Maintainable Applications
 
@@ -160,9 +157,3 @@ Possible symptoms of complexity:
 #### Evolvability: Making Change Easy
 
 How easy you can modify a data system, and adapt it to changing requirements, is closely linked to its simplicity and its abstractions.
-
-## Chapter 2: Data Models and Query Languages
-
-
-![Chapter 2 Cover](./chapter2-cover.png)
-
