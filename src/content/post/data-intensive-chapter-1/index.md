@@ -9,7 +9,7 @@ ogImage: "../data-intensive-cover.jpg"
 tags: ["books", "systems", "learning-notes", "data-intensive", "tl;dr"]
 ---
 
-## Chapter 1: Reliable, Scalable, and Maintainable Applications
+# Chapter 1: Reliable, Scalable, and Maintainable Applications
 
 ![Chapter 1 Cover](./chapter1-cover.png)
 
@@ -22,7 +22,7 @@ Standard building blocks for a data-intensive application:
 - Stream processing: Send a message to another process, to be handled asynchronously
 - Batch processing: Periodically crunch a large amount of accumulated data
 
-### Thinking About Data Systems
+## Thinking About Data Systems
 
 This chapter will explore the fundamentals of what we are trying to achieve when building a data system: **R.M.S**.
 
@@ -30,7 +30,7 @@ This chapter will explore the fundamentals of what we are trying to achieve when
 - Scalability: Have reasonable ways to deal with growth.
 - Maintainability: Enable new developers to work on them productively.
 
-### Reliability
+## Reliability
 
 A fault is a deviation of a system component from its spec.
 
@@ -40,19 +40,19 @@ A failure is when the system as a whole stops providing the required service to 
 
 It's best to design fault-tolerance mechanisms that prevent faults from causing failures.
 
-#### Hardware Faults
+### Hardware Faults
 
 Redundancy can help mitigate hardware faults.
 
 There is a move towards tolerating the loss of entire machines by using software fault-tolerance techniques. This has certain advantages operational advantages, e.g. rolling upgrades, etc.
 
-#### Software Errors
+### Software Errors
 
 Systematic error within the system, usually correlated across nodes, and tend to cause many more system failures than hardware faults.
 
 Bugs lie dormant for a long time until they are triggered by an unusual set of circumstances.
 
-#### Human Errors
+### Human Errors
 
 Minimizes human errors by:
 - Design systems in a way that minimizes opportunities for error.
@@ -62,15 +62,15 @@ Minimizes human errors by:
 - Set up detailed and clear monitoring, such as performance metrics and error rates.
 - Implement good management and operations practices.
 
-#### How Important Is Reliability?
+### How Important Is Reliability?
 
 The cost of failure can be very high, especially in industries like finance, healthcare, etc. However, in other industries, the cost of failure is lower.
 
-### Scalability
+## Scalability
 
 Describes a system's ability to cope with increased load.
 
-#### Describing Load
+### Describing Load
 
 Load can be described with a few *load parameters*. The choice of parameters depends on the architecture of the system. They can be:
 
@@ -79,7 +79,7 @@ Load can be described with a few *load parameters*. The choice of parameters dep
 - Number of simultaneously active users in a chat room
 - Hit rate on a cache
 
-#### Describing Performance
+### Describing Performance
 
 Performance can be described with different metrics depending on the system. They can be:
 
@@ -100,7 +100,7 @@ Percentiles are often used in *service level objectives* (SLOS) and *service lev
 
 Queuing delays can be a significant factor in response time. As a server can only process a limited number of requests in parallel (number of CPU cores, etc.) before subsequent requests are held up, *head-of-line blocking* can occur. Processing time may be small, but the client will see a slow overall response time. This is why it's important to monitor response times on the client side.
 
-#### Approaches for Coping with Load
+### Approaches for Coping with Load
 
 - **Scaling up** (vertical scaling): Moving to a more powerful machine.
 - **Scaling out** (horizontal scaling): Distributing the load across multiple smaller machines.
@@ -111,7 +111,7 @@ Some systems are *elastic*. They can automatically add computing resources when 
 
 Since scaling stateful services is harder than scaling stateless services, it is common to scale up your database until scaling cost or high-availability requirements force you to make it distributed.
 
-### Maintainability
+## Maintainability
 
 We should design software that minimizes pain during maintenance. Three design principles that help with maintainability:
 
@@ -119,7 +119,7 @@ We should design software that minimizes pain during maintenance. Three design p
 - Simplicity: Make it easy for new engineers to understand the system, by removing as much complexity as possible from the system.
 - Evolvability: Make it easy for engineers to make changes to the system in the future.
 
-#### Operability: Making Life Easy for Operations
+### Operability: Making Life Easy for Operations
 
 > Good operations can often work around the limitations of bad (or incomplete) software, but good software cannot run reliably with bad operations.
  
@@ -144,7 +144,7 @@ Data systems can do various things to make routine tasks easy, including:
 - Self-healing where appropriate, and giving administrators manual control when necessary.
 - Exhibiting predictable behavior, minimizing surprises.
 
-#### Simplicity: Managing Complexity
+### Simplicity: Managing Complexity
 
 Possible symptoms of complexity:
 - Explosion of the state space.
@@ -154,6 +154,6 @@ Possible symptoms of complexity:
 - Hacks aimed at solving performance problems.
 - Special-casing to work around issues elsewhere
 
-#### Evolvability: Making Change Easy
+### Evolvability: Making Change Easy
 
 How easy you can modify a data system, and adapt it to changing requirements, is closely linked to its simplicity and its abstractions.

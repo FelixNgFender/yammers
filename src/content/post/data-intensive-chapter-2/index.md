@@ -1,17 +1,15 @@
 ---
 title: "TL;DR: Designing Data-Intensive Applications - Chapter 2"
 description: "My learning notes of Chapter 2 from the book Designing Data-Intensive Applications by Martin Kleppmann"
-publishDate: "8 April 2024"
+publishDate: "9 April 2024"
 coverImage:
   src: "../data-intensive-cover.jpg"
   alt: "Designing Data-Intensive Applications"
 ogImage: "../data-intensive-cover.jpg"
 tags: ["books", "systems", "learning-notes", "data-intensive", "tl;dr"]
-draft: true
 ---
 
-## Chapter 2: Data Models and Query Languages
-
+# Chapter 2: Data Models and Query Languages
 
 ![Chapter 2 Cover](./chapter2-cover.png)
 
@@ -23,7 +21,7 @@ Each layer hides the complexity of the layers below it by providing a clean data
 
 Since there are many different kinds of data models and some can lend themselves to certain applications better than others, it's important to choose the right data model for the job.
 
-### Relational Model Versus Document Model
+## Relational Model Versus Document Model
 
 The most popular data model today is SQL, based on the relational model by Edgar Codd in 1970: data is organized into relations (tables) where each relation is an unordered collection of tuples (rows).
 
@@ -31,7 +29,7 @@ Each competitor to the relational model generated a lot of hype in its time, but
 
 Relational database generalizes very well for a broad variety of use cases.
 
-#### The Birth of NoSQL
+### The Birth of NoSQL
 
 NoSQL is the latest attempt to overthrow the relational model's dominance. Several reasons for the rise of NoSQL databases:
 - Need for greater scalability than relational databases can easily achieve, including very large datasets or very high write throughput.
@@ -41,7 +39,7 @@ NoSQL is the latest attempt to overthrow the relational model's dominance. Sever
 
 Different applications have different requirements, and thus different technology choices. In the foreseeable future, *polyglot persistence*, using relational database alongside a broad variety of nonrelational datastores, will be the norm.
 
-#### The Object-Relational Mismatch
+### The Object-Relational Mismatch
 
 Relational database models need to be mapped to objects in application code through an awkward translation layer if the target programming language is object-oriented. This is called *impendance mismatch*.
 
@@ -60,7 +58,7 @@ Some document-oriented databases are MongoDB, RethinkDB, CouchDB, and Espresso.
 
 The document representation has better *locality* than the multi-table schema. All the information is in one place and can be retrieved with a single query.
 
-#### Many-to-One and Many-to-Many Relationships
+### Many-to-One and Many-to-Many Relationships
 
 In the relational model, many-to-one relationships are easy to model because of joins.
 
@@ -70,7 +68,7 @@ For databases that do not support joins, joins have to be emulated in the applic
 
 Even if the initial version of an application fits well in a join-free document model, data has a tendency to become more interconnected as more features are added.
 
-#### Are Document Databases Repeating History?
+### Are Document Databases Repeating History?
 
 IBM's Information Management System (IMS) was a hierarchical database system that was popular in the 1960s and 1970s. Like document databases, ISM:
 - Works well with one-to-many relationships.
@@ -81,7 +79,7 @@ Developers had to denormalize the data or manually resolve references in the app
 
 Various solutions were proposed to solve the limitations of the hierarchical model (IMS), including the *relational model* and the *network model*.
 
-##### The network model
+#### The network model
 
 The network (CODASYL) model was a generalization of the hierarchical model. It allowed each record to have multiple parent and child records, forming a graph structure.
 
@@ -101,7 +99,7 @@ While manual access path selection makes efficient use of the then limited hardw
 
 It was difficult to make changes to an application's data model.
 
-##### The relational model
+#### The relational model
 
 The relational model, by contrast, lays out all the data in the open: a relation (table) is a collection of tuples (rows).
 
@@ -111,14 +109,14 @@ Querying data in new ways is simple as declaring a new index and let the query o
 
 Query optimizers for relational databases are complicated beasts, but they only need to be built once and all the applcations that use the database can benefit from it.
 
-##### Comparision to document databases
+#### Comparision to document databases
 
 Document databases store nested records within their parent record rather than in a separate table.\
 
 Represeting many-to-one and many-to-many relationships in document databases is similar to relational databases. The related item is referenced by a unique identifier (foreign key for the relational model, document reference for the document model). That identifier is resolved at read time by using a join or follow-up queries.
 
 
-#### Relational Versus Document Databases Today
+### Relational Versus Document Databases Today
 
 The main arguments for document databases are:
 - Schema flexibility
@@ -128,7 +126,7 @@ The main arguments for document databases are:
 The main arguments for relational databases are:
 - Better support for joins, and many-to-one and many-to-many relationships
 
-##### Which data model leads to simpler application code?
+#### Which data model leads to simpler application code?
 
 If the data has a document-like structure (a tree of one-to-many relationships, where typically the entire is loaded at once), then the document model can be simpler. In this scenario, the relational model has to resort to *shredding* - splitting a document-like structure into multiple tables, which leads to cumbersome schemas and unnecessarily complicated application code.
 
@@ -140,7 +138,7 @@ Using a document model in an application that uses many-to-many relationships ca
 
 For highly interconnected data, the document model can be awkward, the relational model is acceptable, and graph models are the most natural.
 
-#### Schema flexibility in the document model
+### Schema flexibility in the document model
 
 Most document databases and JSON support in relational databases do not enforce any schema on the data stored in them. Clients have no guarantees about the structure of the data they read.
 
@@ -158,7 +156,7 @@ The schema-on-read approach can be more useful if the items in the collection do
 
 Schemas may hurt more than help in these cases. Nevertheless, schemas are still useful for documenting and enforcing data structure.
 
-#### Data locality for queries
+### Data locality for queries
 
 A document is stored as a single continuous string, encoded as JSON, XML or binary format. This *data locality* makes it more performant if your application often needs to access the entire document. Data split across multiple tables requires multiple index lookups, which may require more disk seeks and take more time.
 
@@ -176,7 +174,7 @@ Oracle allows the same, using a feature called *multi-table index cluster tables
 
 The *column-family* concept in the Bigtable data model (Cassandra, HBase) has a similar purpose.
 
-#### Convergence of document and relational databases
+### Convergence of document and relational databases
 
 Most relational database systems have added support for XML and JSON. This includes functions to make local modifications to XML documents, index and query inside XML documents.
 
@@ -184,7 +182,7 @@ Document databases have also added support for relational-like joins.
 
 Relational and document databases are becoming more similar over time and the data models complement each other, which is a good route to take in the future.
 
-### Query Languages for Data
+## Query Languages for Data
 
 New ways of querying data were introduced after the relational model:
 - SQL is a *declarative* query language: you specify the pattern of the data you want, not how to retrieve it.
@@ -198,11 +196,11 @@ Advantages of a declarative query language:
 - Easier to parallelize because the order of operations is determined by the database system.
   - Especially in today's world where CPUs are getting faster by adding more cores rather than increasing clock speed.
 
-#### Declarative Queries on the Web
+### Declarative Queries on the Web
 
 Advantages of declarative query languages extend beyong just databases: CSS in the web.
 
-#### MapReduce Querying
+### MapReduce Querying
 
 *MapReduce* is a programming model for processing large amounts of data in bulk across many machines, popularized by Google.
 
@@ -243,5 +241,200 @@ db.observations.mapReduce(
 
 MapReduce is a low-level programming model for distributed execution on a cluster of machines. Higher-level query languages like SQL can be implemented as a pipeline of MapReduce operations. But there are distributed implementations of SQL that don't use MapReduce.
 
-### Graph-Like Data Models
+## Graph-Like Data Models
 
+Many-to-many relationships are a distinguishing feature for different data models. 
+
+For application with mostly one-to-many relationships (tree-structured) or no relationships between records, the document model is a good fit.
+
+The relational model can handle simple cases of many-to-many relationships, but the more complex the connections of the data are, the more natural a graph model becomes.
+
+A graph has two kinds of objects:
+- *vertices* (*nodes*, *entities*).
+- *edges* (*arcs*, *relationships*).
+
+Applications of graph data models:
+- Social graphs: Vertices are people, edges are relationships.
+- The web graph: Vertices are web pages, edges are hyperlinks.
+- Road or rail networks: Vertices are junctions, edges are roads or rail lines.
+
+Well-known algorithms for graph data models:
+- Shortest path: Find the shortest path between two vertices.
+- PageRank: Algorithm used by Google Search on the web graph to rank web pages in search results.
+
+Graphs are not limited to such *homogenous* data: it also works well as a consistent way to store different types of objects in a single datastore.
+
+> Facebook maintains a single graph with many different types of vertices and edges: people, locations, events, checkins, and comments made by users; edges indicate which people are friends, which checkin happened in which location, who commented in which post, who attended which event, and so on.
+
+![Example of graph-structured data (boxes represent vertices, arrows represent edges).](./chapter2-figure2-5.png)
+
+There are several ways to structure:
+- Property graph model: implemeneted by Neo4j, Titan, and InfiniteGraph.
+- Triple-store model: implemeneted by Datomic, AllegroGraph, and others.
+
+And query graph data:
+- Cypher
+- SPARQL
+- Datalog
+
+### Property Graphs
+
+Each vertex consists of:
+- A unique identifier.
+- A set of outgoing edges.
+- A set of incoming edges.
+- A collection of properties (key-value pairs).
+
+Each edge consists of:
+- A unique identifier.
+- The vertex at which the edge starts (the *tail* vertex).
+- The vertex at which the edge ends (the *head* vertex).
+- A label to describe the kind of relationship between the two vertices.
+- A collection of properties (key-value pairs).
+
+A graph store can be thought of consisting of two relational tables: one for vertices and one for edges.
+
+```sql
+CREATE TABLE vertices (
+    vertex_id   integer PRIMARY KEY,
+    properties  json
+);
+
+CREATE TABLE edges (
+    edge_id     integer PRIMARY KEY,
+    tail_vertex integer REFERENCES vertices (vertex_id),
+    head_vertex integer REFERENCES vertices (vertex_id),
+    label       text,
+    properties  json
+);
+
+CREATE INDEX edges_tails ON edges (tail_vertex);
+CREATE INDEX edges_heads ON edges (head_vertex);
+```
+
+Important aspects of the property graph model:
+1. Any vertex can have an edge to any other vertex. No schema restrictions.
+2. Given any vertex, you can efficiently find its incoming and outgoing edges, and traverse the graph both backward and forward. (Thus the indexes in the example above.)
+3. Using labels for different kinds of relationships allows the storage of different kinds of information in a single graph.
+
+For the above reasons, graphs are great for having flexibity in data modeling:
+- Different kinds of regional structures in different countries.
+- Quirks of history in different parts of the world.
+- Varying granularity of data.
+
+Graphs are good for evolvability: adding new features to an application means easily extending a graph.
+
+### The Cypher Query Language
+
+Declarative query language for property graphs, created for Neo4j.
+
+```cypher
+// A subset of the data in Figure 2-5, represented as a Cypher query.
+CREATE
+  (NAmerica:Location {name:'North America', type:'continent'}),
+  (USA:Location      {name:'United States', type:'country'  }),
+  (Idaho:Location    {name:'Idaho',         type:'state'    }),
+  (Lucy:Person       {name:'Lucy' }),
+  (Idaho) -[:WITHIN]->  (USA)  -[:WITHIN]-> (NAmerica),
+  (Lucy)  -[:BORN_IN]-> (Idaho)
+```
+
+Once the vertices and edges are added to the database, we can start querying them.
+
+```cypher
+// Cypher query to find people who emigrated from the US to Europe.
+MATCH
+  (person) -[:BORN_IN]->  () -[:WITHIN*0..]-> (us:Location {name:'United States'}),
+  (person) -[:LIVES_IN]-> () -[:WITHIN*0..]-> (eu:Location {name:'Europe'})
+RETURN person.name
+```
+
+Cypher is declarative. You don't need to specify execution details when writing the query: the query optimizer automaticlaly chooses the most efficient strategy.
+
+### Graph Queries in SQL
+
+Graph data can be represented in a relational database, but can be queried using SQL. But this comes with some difficulty.
+
+Variable-length traversal paths in a SQL query can be done using *recursive common table expressions* (the `WITH RECURSIVE` clause in SQL), which is very clumsy compared to Cypher.
+
+```sql
+-- The same query as Example 2-4, written in SQL using recursive common table expressions
+WITH RECURSIVE
+
+  -- in_usa is the set of vertex IDs of all locations within the United States
+  in_usa(vertex_id) AS (
+      SELECT vertex_id FROM vertices WHERE properties->>'name' = 'United States'
+    UNION
+      SELECT edges.tail_vertex FROM edges
+        JOIN in_usa ON edges.head_vertex = in_usa.vertex_id
+        WHERE edges.label = 'within'
+  ),
+
+  -- in_europe is the set of vertex IDs of all locations within Europe
+  in_europe(vertex_id) AS (
+      SELECT vertex_id FROM vertices WHERE properties->>'name' = 'Europe'
+    UNION
+      SELECT edges.tail_vertex FROM edges
+        JOIN in_europe ON edges.head_vertex = in_europe.vertex_id
+        WHERE edges.label = 'within'
+  ),
+
+  -- born_in_usa is the set of vertex IDs of all people born in the US
+  born_in_usa(vertex_id) AS (
+    SELECT edges.tail_vertex FROM edges
+      JOIN in_usa ON edges.head_vertex = in_usa.vertex_id
+      WHERE edges.label = 'born_in'
+  ),
+
+  -- lives_in_europe is the set of vertex IDs of all people living in Europe
+  lives_in_europe(vertex_id) AS (
+    SELECT edges.tail_vertex FROM edges
+      JOIN in_europe ON edges.head_vertex = in_europe.vertex_id
+      WHERE edges.label = 'lives_in'
+  )
+
+SELECT vertices.properties->>'name'
+FROM vertices
+-- join to find those people who were both born in the US *and* live in Europe
+JOIN born_in_usa     ON vertices.vertex_id = born_in_usa.vertex_id
+JOIN lives_in_europe ON vertices.vertex_id = lives_in_europe.vertex_id;
+```
+
+Pick a data model that is suitable for your application.
+
+### Triple-Stores and SPARQL
+
+Mostly equivalent to the property graph model, but with a different query language: SPARQL.
+
+In a triple-store, all information is stored in the form of *triples*: subject-predicate-object.
+
+For example: `Lucy - born_in - Idaho`.
+
+The subject of a triple is a vertex. The object is either:
+1. A value in a primitive datatype (string, number, date). In this case, the predicate-object is the key-value of a property on the subject vertex.
+2. Another vertex in the graph. In this case, the triple is tail vertex - edge - head vertex.
+
+### The Foundation: Datalog
+
+Datalog provides the foundation for later query languages.
+
+Instead of writing a triple as *(subject, predicate, object)*, we write it as *(predicate(subject, object))*.
+
+## Summary
+
+The relational model is good for applications with many-to-many relationships.
+
+The document model is good for applications with one-to-many relationships.
+
+The graph model is good for applications with complex, interconnected data.
+
+Emulating one model in another is awkward. That's why we have different systems for different purposes.
+
+There are many more data models:
+- GenBank: specialized genome database for *sequence-similarity searchers*.
+- Particle physics: *ROOT* data format for high-energy physics data. Reduce hardware costs while working with petabytes of data.
+- *Full-text search*: Frequently used alongside databases for information retrieval.
+
+> Literature on the relational model distinguishes several different normal forms, but the distinctions are of little practical interest. As a rule of thumb, if you’re duplicating values that could be stored in just one place, the schema is not normalized.
+
+>  Foreign key constraints allow you to restrict modifications, but such constraints are not required by the relational model. Even with constraints, joins on foreign keys are performed at query time.
