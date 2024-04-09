@@ -1,6 +1,6 @@
 ---
 title: "TL;DR: Designing Data-Intensive Applications - Chapter 2"
-description: "My learning notes of Chapter 2 from the book Designing Data-Intensive Applications by Martin Kleppmann"
+description: "Learning notes from Chapter 2: Data Models and Query Languages of Designing Data-Intensive Applications by Martin Kleppmann"
 publishDate: "9 April 2024"
 coverImage:
   src: "../data-intensive-cover.jpg"

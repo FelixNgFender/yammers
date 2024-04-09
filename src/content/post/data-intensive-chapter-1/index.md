@@ -1,6 +1,6 @@
 ---
 title: "TL;DR: Designing Data-Intensive Applications - Chapter 1"
-description: "My learning notes of Chapter 1 from the book Designing Data-Intensive Applications by Martin Kleppmann"
+description: "Learning notes from Chapter 1: Reliable, Scalable, and Maintainable Applications of Designing Data-Intensive Applications by Martin Kleppmann"
 publishDate: "6 April 2024"
 coverImage:
   src: "../data-intensive-cover.jpg"
