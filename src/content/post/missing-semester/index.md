@@ -65,7 +65,7 @@ Writing to the `sysfs` filesystem mounted under `/sys` requires root privileges.
 
 `xdg-open` opens a file with the default program. It is a cross-platform command.
 
-# Lecture 2: Shell Tools and Scripting
+## Lecture 2: Shell Tools and Scripting
 
 Shell scripts are the next step in complexity after one-liners. They are a sequence of commands that are executed by the shell. Most shells have their own scripting language with variables, control flow, and its own syntax. We will be using `bash`.
 
@@ -213,4 +213,126 @@ Typing the up arrow key will cycle through the history of commands. `Ctrl + R` w
 - `history` - shows the history of commands
 - `fzf` - a general-purpose fuzzy finder that can be used to search through the history of commands
 
-# Lecture 3: Editors (Vim)
+## Lecture 3: Editors (Vim)
+
+### Philosophy of Vim
+
+Vim is a *modal* text editor: it has different modes for inserting text vs. manipulating text.
+
+Vim is programmable and Vim's interface itself is a programming language. It is a language for editing text.
+
+Keystrokes (with mnemonic names) are commands, and these commands are composable.
+
+The end result is an editor that matches the speed of your thoughts.
+
+### Modal editing
+
+As a lot of programmer time is spent reading, navigating, and making small edits, Vim is optimized for these tasks with its multiple operating modes:
+
+- **Normal**: for moving around a file and making edits
+- **Insert**: for inserting text
+- **Replace**: for replacing text
+- **Visual**(plain, line, or block): for selecting blocks of text
+- **Command-line**: for running a command
+
+The initial/default mode the Normal mode. You'll spend most of your time in Normal mode and Insert mode.
+
+- `<ESC>` to go from any mode back to Normal mode
+- From Normal mode, enter:
+  - `i` to enter Insert mode
+  - `R` to enter Replace mode
+  - `v` to enter Visual mode
+  - `V` to enter Visual Line mode
+  - `<C-v>` to enter Visual Block mode
+  - `:` to enter Command-line mode
+
+### Basics
+
+#### Inserting text
+
+- `i` to insert text before the cursor
+- `I` to insert text at the beginning of the line
+- `a` to insert text after the cursor
+- `A` to insert text at the end of the line
+
+#### Buffers, tabs, and windows
+
+- A Vim session has one or more tabs
+- Each tab has one or more windows (split panes)
+- Each window shows one buffer at a time, an in-memory representation of a file
+- By default, Vim opens with a single tab that contains a single window
+
+#### Command-line
+
+Enter command mode by typing `:` in Normal mode. It allows for opening, saving, and closing files. and quitting Vim among other things.
+
+- `:q` quit (close window)
+- `:w` save ("write")
+- `:wq` save and quit
+- `:e <filename>` open a file
+- `:ls` list buffers
+- `:help <topic>` open help
+  - `:help :w` to open help for the `:w` command
+  - `:help w` to open help for the `w` motion
+
+### Vim's interface is a programming language
+
+Keystrokes (with mnemonic names) are commands, and these commands are composable.
+
+#### Movement
+
+Vim movements in Normal mode's buffers are called "nouns" because they refer to chunks of text.
+
+- `hjkl` left, down, up, right
+- Words: `w` (next world), `b` (beginning of word), `e` (end of word)
+- Lines: `0` (beginning of line), `^` (first non-blank character), `$` (end of line)
+- Screen: `H` (top of screen), `M` (middle of screen), `L` (bottom of screen)
+- Scroll: `Ctrl + u` (up), `Ctrl + d` (down)
+- File: `gg` (beginning of file), `G` (end of file)
+- Line numbers: `:<line number>` (go to line number), `{line number}G` (go to line number)
+- Misc: `%` (matching parenthesis)
+- Find: `f<char>`, `t<char>`, `F<char>`, `T<char>`
+  - find/to forward/backward `<char>` on the current line
+  - `,`/`;` to navigate matches
+- Search: `/{regex}`, `n`/`N` to navigate matches
+
+#### Selection
+
+Can use movement keys to make selection.
+
+#### Edits
+
+Vim's editing commands are called "verbs" because they perform actions on nouns.
+
+- `i` enter Insert mode
+- `o`, `O` insert line below/above
+- `d{motion}` delete {motion}
+  - e.g. `dw` delete word, `d$` delete to end of line, `d0` delete to beginning of line
+- `c{motion}` change {motion}
+  - e.g. `cw` change word
+- `x` delete character (equal to `dl`)
+- `s` substitute character (equal to `cl`)
+- Visual mode + manipulation commands
+  - select text, `d` to delete, `c` to change, `y` to yank (copy)
+- `u` to undo, `<C-r>` to redo
+- `y` to yank (copy), `p` to paste
+
+#### Counts
+
+Combine nouns and verbs with a count, which repeats the command that many times.
+
+- `3w` move forward 3 words
+- `5j` move down 5 lines
+- `7dw` delete 7 words
+
+#### Modifiers
+
+Modifiers change the meaning of a noun.
+
+- `i` inner, `a` around
+  - `ci(` change inside parentheses
+  - `ci[` change inside brackets
+  - `da'` delete around single quotes
+
+## Lecture 4: Data Wrangling
+
