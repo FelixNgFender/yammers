@@ -380,7 +380,6 @@ Use the built-in package manager to install plugins. Create the directory `~/.vi
 - `sort` - sorts lines of text
 - `uniq` - filters out adjacent matching lines
 - `awk` - pattern scanning and processing language
-- 
 
 ### Regular expressions
 
