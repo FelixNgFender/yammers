@@ -374,3 +374,26 @@ Use the built-in package manager to install plugins. Create the directory `~/.vi
 
 ## Lecture 4: Data Wrangling
 
+- `grep` - search for patterns in files
+- `less` - a pager that allows you to scroll through files, similar to `man` pages
+- `sed` - stream editor for filtering and transforming text
+- `sort` - sorts lines of text
+- `uniq` - filters out adjacent matching lines
+- `awk` - pattern scanning and processing language
+- 
+
+### Regular expressions
+
+Regular expressions are a way to describe patterns in text. They are used by many tools, including `grep` and `sed`.
+
+Most regular expressions are usually surrounded by `/` characters.
+
+- `.` matches any character
+- `*` matches zero or more of the preceding character
+- `+` matches one or more of the preceding character
+- `[abc]` matches any of the characters `a`, `b`, or `c`
+- `(RX1|RX2)` matches `RX1` or `RX2`
+- `^` matches the beginning of a line
+- `$` matches the end of a line
+
+# Lecture 5: Command-line Environment
