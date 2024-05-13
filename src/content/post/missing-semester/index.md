@@ -334,5 +334,43 @@ Modifiers change the meaning of a noun.
   - `ci[` change inside brackets
   - `da'` delete around single quotes
 
+### Customizing Vim
+
+Vim is highly customizable. This is done by editing the `~/.vimrc` file containing Vimscript commands.
+
+### Extending Vim
+
+Use the built-in package manager to install plugins. Create the directory `~/.vim/pack/vendor/start/` and put plugins in there (e.g. via `git clone`).
+
+- ctrlp.vim: fuzzy file finder
+- ack.vim: code search
+- nerdtree: file explorer
+- vim-easymotion: magic motions
+
+### Advanced Vim
+
+#### Search and replace
+
+`:s` (substitute) command
+
+- `%s/foo/bar/g` replace all occurrences of `foo` with `bar` in the file
+- `%s/\[.*\](\(.*\))/\1/g` replace named Markdown links with plain URLs
+
+#### Multiple windows
+
+- `:sp`/`:vsp` to split windows horizontally/vertically
+- Can have multiple views of the same buffer
+
+#### Macros
+
+- `q{character}` to start recording a macro in register `{character}`
+- `q` to stop recording
+- `@{character}` to play back the macro
+- Macro execution stops on error
+- `{number}@{character}` to play back the macro multiple times
+- Macros can be recursive
+  - first clear the macro with `q{character}q`
+  - record the macro, with `@{character}` in the middle (will be a no-op until recording is complete)
+
 ## Lecture 4: Data Wrangling
 
