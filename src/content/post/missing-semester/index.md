@@ -395,4 +395,143 @@ Most regular expressions are usually surrounded by `/` characters.
 - `^` matches the beginning of a line
 - `$` matches the end of a line
 
-# Lecture 5: Command-line Environment
+## Lecture 5: Command-line Environment
+
+### Job Control
+
+#### Killing a process
+
+When you are executing a command, your shell is using *signals* to communicate information to the process. When a process receives a signal, it stops its execution, deals with the signal and potentially changes of the flow of execution based on the information that the signal delivered. That's why signals are also called *software interrupts*.
+
+- `Ctrl + C` sends the `SIGINT` signal to the process. This signal is used to interrupt a process.
+- `Ctrl + \` sends the `SIGQUIT` signal to the process. This signal is used to quit a process and dump core.
+- `SIGTERM` is a more generic signal that tells a process to exit gracefully. It is the default signal sent by the `kill` command with the syntax `kill -TERM <PID>`.
+
+#### Pausing and backgrounding processes
+
+- `SIGSTOP` is a signal that tells a process to stop. It is the signal sent by the `kill` command with the syntax `kill -STOP <PID>`.
+- `Ctrl + Z` sends the `SIGTSTP` (Terminal Stop, terminal version of `SIGSTOP`) signal to the process. This signal is used to pause a process.
+- `bg` is a command that sends a process to the background. It is used to resume a paused process.
+- `fg` is a command that brings a background process to the foreground.
+- `jobs` is a command that lists the jobs running in the background.
+- `pgrep` is a command that lists the process IDs of processes that match a pattern.
+- `ps` is a command that lists the processes running on the system.
+- `$!` refers to the last backgrounded job
+- The `&` suffix sends a command to the background
+- `Ctrl + Z` followed by `bg` is a common pattern to send a process to the background
+  - Any backgrounded processes are still children processes of the shell and will die if the terminal is closed (this will send the `SIGHUP` signal)
+  - Running the program with `nohup` (a wrapper to ignore `SIGHUP`), or use `disown` to prevent this, or use a terminal multiplexer
+- `SIGKILL` is a signal that tells a process to stop immediately. It is sent by the `kill` command with the syntax `kill -KILL <PID>`. It always terminates the process but can have bad side effects such as leaving orphaned children processes
+
+### Terminal Multiplexers
+
+Terminal multiplexers like `tmux` allow you to multiplex terminal windows using panes and tabs for interaction with multiple shell sessions.
+
+`tmux` has the following hierarchy of objects:
+- **Sessions** - an independent workspace with one or more *windows*
+  - `tmux` starts a new session
+  - `tmux new -s <session-name>` starts a new session with a name
+  - `tmux ls` lists all sessions
+  - Within a session, `<C-b> d` detaches from the session
+  - `tmux a` attaches the last session, specficy the target with the `-t` flag
+- **Windows** - visually separate parts of the same sessions. Similar to tabs in editors or browsers
+  - `<C-b> c` creates a new window
+    - Terminate the shells using `<C-d>`
+  - `<C-b> n` and `<C-b> p` to navigate between windows
+  - `<C-b> 0` to `<C-b> 9` to navigate to a specific window
+  - `<C-b> ,` to rename a window
+  - `<C-b> w` to list windows
+- **Panes** - multiple shells in the same visual display
+  - `<C-b> "` splits the window horizontally
+  - `<C-b> %` splits the window vertically
+  - `<C-b> <arrow>` to navigate between panes
+  - `<C-b> z` to zoom in/out of a pane
+  - `<C-b> [` to start scrollback. Press `<space>` to start a eelection and `<enter>` to copy
+  - `<C-b> <space>` to cycle through pane arrangements
+
+### Aliases
+
+### Dotfiles
+
+Dotfiles are plain-text configuration files.
+
+On shell startup, it will read many files to load its configuration.
+
+- `bash` - `~/.bashrc`, `~/.bash_profile`
+- `git` - `~/.gitconfig`
+- `vim` - `~/.vimrc`, `~/.vim` directory 
+- `ssh` - `~/.ssh/config`
+- `tmux` - `~/.tmux.conf`
+
+Organize your dotfiles by placing them in their own version-controlled directory, and **symlinked** into place using a script. Benefits are:
+- Easy installation: if you log in to a new machine, applying your customizations will only take a minute.
+- Portability: your tools will work the same way everywhere.
+- Synchronization: you can update your dotfiles anywhere and keep them all in sync.
+- Change tracking: you’re probably going to be maintaining your dotfiles for your entire programming career, and version history is nice to have for long-lived projects.
+
+#### Portability
+
+Configurations might not work when working with several machines. You can use `if` statements to apply machine specific customizations
+
+```bash
+if [[ "$(uname)" == "Linux" ]]; then {do_something}; fi
+
+# Check before using shell-specific features
+if [[ "$SHELL" == "zsh" ]]; then {do_something}; fi
+
+# You can also make it machine-specific
+if [[ "$(hostname)" == "myServer" ]]; then {do_something}; fi
+```
+
+### Remote Machines
+
+Use `ssh` to use remote servers in order to deploy backend software or run a server with higher computational capabilities.
+
+#### Executing commands
+
+You can even run commands directly over `ssh`:
+
+```bash
+ssh foobar@server ls # will execute `ls` in the home directory of `foobar`
+```
+
+It also works with pipes.
+
+#### SSH keys
+
+Key-based authentication uses public-key cryptography to prove to the server that the client owns the secret private key without revealing the key.
+
+#### Copying files over SSH
+
+- `ssh+tee` - `ssh` into the remote machine and use `tee` to write the file
+- `scp` - secure copy, a command-line tool to copy files over SSH
+- `rsync` - a tool to synchronize files and directories between two locations
+
+#### Port forwarding
+
+Port forwarding allows you to securely access a service running on a remote machine by forwarding the port to your local machine. It comes in two flavors: local and remote.
+
+- Local port forwarding: forwards a port from the client machine to the server machine
+- Remote port forwarding: forwards a port from the server machine to the client machine
+
+#### SSH configuration
+
+You can configure SSH to use specific settings for specific hosts. This is done by creating a `~/.ssh/config` file.
+
+### Shells & Frameworks
+
+- `zsh` - superset of `bash`, with more features and better defaults
+- `fish` - friendly interactive shell 
+
+Frameworks can improve shell programs by providing additional features and shortcuts.
+
+- `oh-my-zsh` - a framework for managing your `zsh` configuration
+- `prezto` - a configuration framework for `zsh`
+
+### Terminal Emulators
+
+- `Alacritty` - a fast, GPU-accelerated terminal emulator
+- `kitty` - a modern, hackable terminal emulator
+
+## Lecture 6: Version Control (Git)
+
