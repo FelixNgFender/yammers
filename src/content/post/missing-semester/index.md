@@ -535,3 +535,4 @@ Frameworks can improve shell programs by providing additional features and short
 
 ## Lecture 6: Version Control (Git)
 
+## Lecture 7: Debugging and Profiling
