@@ -536,3 +536,123 @@ Frameworks can improve shell programs by providing additional features and short
 ## Lecture 6: Version Control (Git)
 
 ## Lecture 7: Debugging and Profiling
+
+Dealing with buggy and resource hungry code requires debugging and profiling tools.
+
+### Debugging
+
+#### Printf debugging and Logging
+
+The naive approach is to add print statements around where the problem might be and keep iterating until the problem is found.
+
+A better approach would be to use logging instead:
+
+- Log to files, sockets or even remote servers instead of standard output
+- Logging supports severity levels (INFO, DEBUG, WARN, ERROR, etc.) which allows for output filtering
+- For new issues, there's a high chance that the logs will contain enough information to diagnose the problem
+
+Make logs more readable with color codes. Terminals support ANSI escape codes for colors.
+
+#### Third party logs
+
+Client side error messages might not be enough when detecting issues in larger software systems. 
+
+Most systems write their logs somewhere in the system. In UNIX systems, it is common for programs to write their logs under `/var/log`.
+
+- The NGINX websesrver places its logs under `/var/log/nginx`
+- More recently, systems have started using a **system log**, which is where all of your log meesages. Most Linux systems use `systemd`, a system daemon that controls services in your system. `systemd` places the logs under `/var/log/journal` which can be accessed using the `journalctl` command.
+- The `logger` shell program can be used for logging messages to the system log.
+
+#### Debuggers
+
+Debuggers are programs that let you interect with the execution of a program:
+
+- Halt the execution of a program when it reaches a certain line
+- Step through the program one instruction at a time
+- Inspect the values of variables after the program crashed
+- Conditionally halt the execution when a given condition is met
+
+#### Specialized tools
+
+- `dtrace` and `strace` - trace syscalls and signals
+- `tcpdump` and `wireshark` - network traffic analysis
+- Chrome/Firefox developer tools - web debugging
+
+#### Static Analysis
+
+Static analysis programs take source code as input and analyze it using coding rules to reason about its correctness. E.g., `mypy`, `pyflakes` for Python, `shellcheck` for shell scripts.
+
+**Code linting** refers to most editors' support of displaying the output of static analysis tools in the editor itself. Other types of issues displayed are stylistic violations and insecure constructs
+
+Code formatters are complementary to linters. They automatically format code to a consistent style. E.g., `black` for Python, `prettier` for JavaScript.
+
+### Profiling
+
+Profilers and monitoring tools help you understand which parts of your program are taking most of the time and/or resources so you can focus on optimizing them.
+
+#### Timing
+
+Wall clock time can be misleading since the computer might be running other proicesses at the same time or waiting for events to happen. It's important for tools to make a distinction between Real, User, and System time:
+
+- *Real* - Wall clock elapsed time from start to finish of the program, including time taken by other processes and time taken while blocked (e.g., waiting for I/O or network)
+- *User* - amount of time spent in the CPU running user code
+- *System* - amount of time spent in the CPU running kernel code
+
+In general, User + Sys tells you how much time your process actually spent in the CPU.
+
+#### Profilers
+
+##### CPU
+
+Most common type. Two main types of CPU profiles: *tracing* and *sampling*.
+
+- Tracing profilers keep track of every function call
+- Sampling profilers probe the program periodically and record the stack trace
+
+They use these records to present aggregate statistics about the program's execution.
+
+Line profilers are a type of CPU profiler that measure the time spent in each line of code, which in some cases, are more intuitive than function-level profilers.
+
+##### Memory
+
+In C or C++, memory leaks can cause the program to never release memory it doesn't use anymore. Tools like `valgrind` can help identify these.
+
+In garbage-collected languages like Python or Java, it is still useful to have a memory profiler because as long as you have pointers to objects in memory, they won't be garbage collected.
+
+#### Event profiling
+
+Sometimes it's helpful to view the program's execution as a black box when profiling. The `perf` command abstracts away CPU differences and reports system events related to your program. It can easily report poor cache locality, high amount of page faults or livelocks.
+
+#### Visualization
+
+There are many tools for displaying profiler's output in a more human-readable way.
+
+![Flame graph](./flame-graph.png)
+
+Flame graphs - display a hierarchy of function calls across the Y axis and time taken proportional to the X axis. They also let you zoom into specific parts of the program and get their stack traces.
+
+![Call graph](./call-graph.png)
+
+Call graphs - display the relationships between subroutines within a program by displaying functions as nodes and function calls as edges.
+
+#### Resource monitoring
+
+The first step towards analyzing the performance of a program is to understand what its actual resource consumption is.
+
+- General monitoring - `htop`, `top` - presents statistics about currently running processes on the system
+- I/O operations - `iotop` - displays I/O usage information
+- Disk usage - `df` - displays metrics per partitions, `du` - displays disk usage per file for the current directory
+- Memory usage - `free` - display total amount of free and used memory in the system
+- Open files - `lsof` - lists files' informations for ones opened by processes
+- Network connection and config - `ss` - monitor incoming and outgoing network packet and interface statistics, `ip` - show and manipulate routing, devices, policy routing and tunnels
+- Network usage - `nethogs` and `iftop` - interactive CLI tools for monitoring network traffic
+
+Artificially impose loads on the maching using the `stress` command.
+
+#### Specialized tools
+
+Sometimes, black box profiling is all you need.
+
+`hyperfine` quickly benchmarks command line programs.
+
+## Lecture 8: Metaprogramming
