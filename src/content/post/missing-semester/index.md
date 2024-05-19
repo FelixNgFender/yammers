@@ -656,3 +656,80 @@ Sometimes, black box profiling is all you need.
 `hyperfine` quickly benchmarks command line programs.
 
 ## Lecture 8: Metaprogramming
+
+Metaprogramming is a collective term for a set of things about the *process* of writing code rather than the code itself. It can refer to systems for building and testing code, and for managing dependencies. It can also mean "programs that operate on programs".
+
+### Build systems
+
+For most projects, there is a "build process", which might have many steps and many branches, to perform to go from inputs to outputs.
+
+For most build systems, there are a number of *dependencies*, a number of *targets*, and *rules* for going from one to the other.
+
+- A target is specified
+- The build system finds all the transitive dependencies of the target
+- The build system applies the rules to produce intermediate targets all the way until the final target has been produced
+- Ideally, the build system will only rebuild the targets that have changed since the last build
+
+`make` is one common build system available on most UNIX systems. It uses a `Makefile` to specify the targets, dependencies, and rules.
+
+```make
+paper.pdf: paper.tex plot-data.png
+	pdflatex paper.tex
+
+plot-%.png: %.dat plot.py
+	./plot.py -i $*.dat -o $@
+```
+
+#### Depedency management
+
+Dependencies might be:
+
+- installed programs (like `python`)
+- system packages (like `openssl`)
+- programming language libraries (like `matplotlib`)
+
+These days, most dependencies will be available through a centralized *repository* of dependencies that provides a convenient installation mechanism.
+
+- `apt` - package manager for Debian-based systems
+- RubyGems - package manager for Ruby libraries
+- PyPi - package manager for Python libraries
+- Arch User Repository - community-driven package manager for Arch Linux
+
+One common aspect of these package managers is *versioning*.
+
+A major benefit of versioning is to help ensure software keeps working.
+
+*Semantic versioning* is a versioning scheme helps to communicate the nature of changes in a new version. Every version number has three parts: `MAJOR.MINOR.PATCH`.
+
+- If a new release does not change the public-facing API, increase the patch version
+- If you *add* to your API in a backwards-compatible way, increase the minor version
+- If you *change* your API in a backwards-incompatible way, increase the major version
+
+This unlocks some major advantages:
+
+- If a projects depends on a library, it should be safe to use the latest release with the same major version number as the one you started with
+- Prevents you from accidentally upgrading to a version that breaks your code
+
+In dependency management systems, *lock file* is a file that lists the exact version of each dependency in a project. Usually, an explicit update command is required to upgrade to newer versions of your dependencies, essentially updating the project's lock file.
+
+Having a lock file helps: 
+
+- Avoid unnecessary recompiles
+- Having reproducible builds
+- Not automatically updating to the latest version (which may be broken)
+
+An extreme version of this is *vendoring*, where you copy the source code of your dependencies into your project. This is a good way to ensure that your project will always build and introduce your own changes, but you have to explicitly pull in any updates from the upstream maintainers over time.
+
+### Continuous integration systems
+
+#### A brief aside on testing
+
+Some testing approaches and terminology:
+
+- Test suite: a collective term for all the tests
+- Unit test: a “micro-test” that tests a specific feature in isolation
+- Integration test: a “macro-test” that runs a larger part of the system to check that different feature or components work together.
+- Regression test: a test that implements a particular pattern that previously caused a bug to ensure that the bug does not resurface.
+- Mocking: to replace a function, module, or type with a fake implementation to avoid testing unrelated functionality. For example, you might “mock the network” or “mock the disk”.
+
+## Lecture 9: Cryptography
