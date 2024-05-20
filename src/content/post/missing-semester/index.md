@@ -1,9 +1,8 @@
 ---
 title: "The Missing Semester of Your CS Education"
 description: "Learning notes from The Missing Semester of Your CS Education course by MIT"
-publishDate: "11 April 2024"
+publishDate: "20 May 2024"
 tags: ["courses", "cli", "learning-notes"]
-draft: true
 ---
 
 # The Missing Semester of Your CS Education
@@ -735,3 +734,82 @@ Some testing approaches and terminology:
 ## Lecture 9: Security and Cryptography
 
 ## Lecture 10: Potpourri
+
+### Keyboard remapping
+
+### Daemons
+
+Daemons are background processes that run on a system. They are usually started at boot time and run until the system is shut down. And they often end with a `d`.
+
+- `systemd` - a system and service manager for Linux operating systems
+- `sshd` - the daemon that listens for incoming SSH connections
+- `cron` - a daemon that runs scheduled tasks
+
+### FUSE
+
+FUSE (Filesystem in Userspace) is a software interface for Unix and Unix-like computer operating systems that lets non-privileged users create their own file systems without editing kernel code. 
+
+This is achieved by running file system code in user space while the FUSE module provides only a "bridge" to the actual kernel interfaces.
+
+- `sshfs` - a filesystem client based on the SSH File Transfer Protocol. Whenever you perform an operation in a virtual filesystem, that operation is forwarded through SSH to a remote machine, performed there, and the output is returned back to you. Local programs can see the file as if it were local.
+- `rclone` - mount cloud storage services like Dropbox, Google Drive, and Amazon S3 and open data locally
+- `gocryptfs` - a filesystem that encrypts files on the fly
+- `kbfs` - distributed filesystem with end-to-end encryption
+- `borgbackup` - mount your deduplicated, compressed and encrypted backups for ease of browsing
+
+### Backups
+
+- A copy of the data in the same disk is not a backup -> single point of failure
+  - Similarly for an external drive in your home -> fire/robbery/etc.
+  - An off-site backup is a recommended practice
+- Synchronization solutions are not backups -> data erasure or corruption will be propagated
+  - Similarly for disk mirroring solutions like RAID
+- Good backups should be:
+  - Versioned - access history of changes and efficiently recover files
+  - Deduplicated - only store incremental changes and reduce the storage overhead
+  - Secure - encrypted and protected from unauthorized access
+
+### APIs
+
+Most services online will have APIs that let you programmatically access their data.
+
+### Common command-line flags/patterns
+
+- `-h`/`--help` - most commands have a help flag that prints a brief description of the command and its flags
+- `man` - manual pages
+- "dry run" - a flag that tells a command to print what it would do without actually doing it
+- "interactive" - a flag that tells a command to ask for confirmation before doing something
+- `--version`/`-V` - print the version of the program
+- `--verbose`/`-v` - print more information about what the program is doing
+  - `--quiet`/`-q` - print less information
+- `-` - a common convention for "standard input" or "standard output"
+- `-r` - a common convention for "recursive"
+- `--` - makes a program stop processing flags and options (things starting with `-`) in what follows, letting you pass things that look like flags without them being interpreted as flags: `rm -- -r` will remove a file named `-r`
+
+### Window managers
+
+Aside from the "drag and drop" window manager (what ships with Windows, macOS, and Ubuntu by default. A.k.a. "floating" window manager), another common alternative is a "tiling" window manager.
+
+In a tiling window manager, windows never overlap. They are arranged in a grid, and the size of each window is adjusted to fit the grid. This can be more efficient for some workflows. Much like tmux panes, you can navigate between windows using keyboard shortcuts, resize them, and move them around, all without touching the mouse.
+
+### VPNs
+
+A VPN (Virtual Private Network) is a service that lets you access the internet through a server run by a VPN provider. All data traveling between your computer, phone, or tablet, and this "VPN server" is securely encrypted. As a result, your actual IP address is hidden from the services you visit.
+
+### Markdown
+
+### Hammerspoon (desktop automation on macOS)
+
+### Booting + Live USBs
+
+### Docker, Vagrant, VMs, Cloud, OpenStack
+
+Virtual machines and similar tools like containers let you emulate a whole computer system, including the OS. This can be useful for creating isolated environments for testing, development, or exploration.
+
+### Notebook programming
+
+Notebook programming environments can be handy for interactive or exploratory development.
+
+### GitHub
+
+## Lecture 11: Q&A
