@@ -732,4 +732,6 @@ Some testing approaches and terminology:
 - Regression test: a test that implements a particular pattern that previously caused a bug to ensure that the bug does not resurface.
 - Mocking: to replace a function, module, or type with a fake implementation to avoid testing unrelated functionality. For example, you might “mock the network” or “mock the disk”.
 
-## Lecture 9: Cryptography
+## Lecture 9: Security and Cryptography
+
+## Lecture 10: Potpourri
