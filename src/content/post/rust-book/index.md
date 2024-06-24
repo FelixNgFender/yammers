@@ -1,7 +1,7 @@
 ---
 title: "TL;DR: The Rust Programming Language"
 description: "Learning notes from The Rust Programming Language book"
-publishDate: "22 Jun 2024"
+publishDate: "24 Jun 2024"
 coverImage:
     src: "./rust-book.png"
     alt: "The Rust Programming Language"
@@ -184,6 +184,29 @@ A package can have multiple binary crates by placing files in the `src/bin` dire
 ### 7.2. Defining Modules to Control Scope and Privacy
 
 *Paths* allow you to name items; the `use` keyword brings a path into scope; and the `pub` keyword makes items public.
+
+## 8. Common Collections
+
+### 8.2. Storing UTF-8 Encoded Text With Strings
+
+ASCII: American Standard Code for Information Interchange. Each charater represented with 7 bits. Only 128 characters! English alphabets, integers, and special symbols.
+
+Unicode consortium: Born to unite different text encodings from different countries when the World Wide Web got big in the 90's.
+
+UTF-8: Widely used encoding by the Unicode consortium. Variable-width character encoding, a character can be 1-4 bytes. Can encode 1,112,064 characters! Backwards-compatible with ASCII. Used on web. Can encode emoijs.
+
+UTF-8 is also the encoding used in Rust.
+
+Rust has two string types:
+
+- `&str`: the only string type in the core language - *string slices*, references to some UTF-8 encoded string data stored elsewhere (program binary, stack or heap). The string data actually lives somewhere else in memory (`str`) while we only use a "view" into it (`&str`). This is a *fat pointer* (pointer + associated metadata) consisting of the pointer to the first character in memory and the length of string.
+- `String`: *growable*, *mutable*, *owned*, *UTF-8 encoded* string type. Use it when you need to own or modify your string data. The fat pointer consists of the pointer to the first character of the string on the heap, the length of the string, and its capacity.
+
+String literals are string slices that live in the application binary.
+
+Use `format!` over `+` for string concatenation since the latter takes ownership of the first value passed into it.
+
+Use `concat!` over `format!` if you want `&str` instead of `String`.
 
 ## 9. Error Handling
 
@@ -559,7 +582,6 @@ To access the data inside the mutex, we use the `lock` method to acquire the loc
 
 `Mutex<T>` is a smart pointer. Calling `lock` returns the smart pointer `MutexGuard`, wrapped in a `LockResult`.
 
-
 This smart pointer:
 
 - implements `Deref` to point at its inner data
@@ -579,7 +601,45 @@ Implementing `Send` and `Sync` manually is unsafe.
 
 ## 17. Object-Oriented Programming Features of Rust
 
-## 18. Patterns and Matching
+### 17.1. Characteristics of Object-Oriented Languages
+
+In Rust, instead of classes, structs and enums hold data, and have implementations that provide methods.
+
+Encapsulation by utilizing the Rust module system.
+
+Inheritance by utilizing `Default` trait method implementations. Polymorphism by using generics to abstract away concrete types and trait bounds to restrict the characteristics of those types and trait objects.
+
+### 17.2. Using Trait Objects That Allow for Values of Different Types
+
+Define a trait object:
+
+```rust
+Box<dyn SomeTraitName>
+```
+
+The `dyn` keyword means *dynamic dispatch*. Rust will ensure at compile any object in referenced by the trait object will implement the `SomeTraitName` trait.
+
+```rust
+T: SomeTraitName
+```
+
+So why not generics and trait bound? A generic type parameter can only be substituted with one concrete type at a time, whereas trait objects allow for multiple concrete types to fill in for the trait object at runtime.
+
+So `Vec<T> where T:SomeTraitName` can only contain one concrete type that implements `SomeTraitName`, whereas `Vec<Box<dyn SomeTraitName>>` can contain a mixture of concrete types that all implement `SomeTraitName`.
+
+If you'll only ever have homogenous collections, use generics and trait bounds because the definitions will be monomorphized at compile time to use concrete types. Trait objects have runtime performance implications to them.
+
+Recall monomorphization: the compiler generates nongeneric implementations of functions and methods for each concrete type that we use in place of a generic type parameter. This is *static dispatch*, the compiler knows what methods you're calling at compile time.
+
+*Dynamic dispatch* is when the compiler does not know what methods you're calling at compile time. In these cases, the compiler emits code that at runtime will figure which method to call.
+
+When using trait objects, Rust uses the pointers inside the trait object to know which method to call, which incurs a runtime cost.
+
+### 17.3. Implementing an Object-Oriented Design Pattern
+
+In the state pattern, we have some value which has an internal state that is represented by a state object. Each state object is responsible for its own behavior and deciding when to transition into another state. The value that holds the state objects knows nothing about the different behaviors of states or when to transition to different states.
+
+Encoding state into the type system is more ergonormic in Rust compared than pure object-oriented state design pattern (which is also possible). But they have their tradeoffs.
 
 ## 19. Advanced Features
 
@@ -605,7 +665,7 @@ Most widely used form of Rust macros. Written similar to `match` expressions, re
 
 Written more like functions, take code as input, operate on that code, produce code as output. There are three kinds of procedural macros:
 
-- Custom-derive
+- Custom-derive: `#[derive(MacroName)]`
 - Attribute-like
 - Function-like
 
