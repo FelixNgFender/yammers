@@ -25,7 +25,7 @@ export const siteConfig: SiteConfig = {
 	title: "Felix Yammers On...",
 	webmentions: {
 		// Webmention.io API endpoint. Get your own here: https://webmention.io/, and follow this blog post: https://astro-cactus.chriswilliams.dev/posts/webmentions/
-		link: "https://webmention.io/api/mentions.html?token=2PbfMEVw3uH3nr3amwJVZQ",
+		link: "https://webmention.io/felixng.me/webmention",
 	},
 };
 
