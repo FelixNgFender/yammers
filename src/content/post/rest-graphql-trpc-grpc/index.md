@@ -56,7 +56,7 @@ A high-performance, open-source universal RPC framework.
 Pros:
 
 - Good for multi-language, inter-service communication
-- Runs on top of HTTP/2 
+- Runs on top of HTTP/2
 - Really fast and optimized
 - Supports streaming
 

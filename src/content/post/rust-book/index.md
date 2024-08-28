@@ -3,8 +3,8 @@ title: "TL;DR: The Rust Programming Language"
 description: "Learning notes from The Rust Programming Language book"
 publishDate: "24 Jun 2024"
 coverImage:
-    src: "./rust-book.png"
-    alt: "The Rust Programming Language"
+  src: "./rust-book.png"
+  alt: "The Rust Programming Language"
 ogImage: "./rust-book.png"
 tags: ["books", "systems", "learning-notes", "rust", "tl;dr"]
 ---
@@ -17,7 +17,7 @@ tags: ["books", "systems", "learning-notes", "rust", "tl;dr"]
 
 #### Ownership Rules
 
-1. Each value in Rust has an *owner*.
+1. Each value in Rust has an _owner_.
 2. There can only be one owner at a time.
 3. When the owner goes out of scope, the value will be dropped.
 
@@ -31,18 +31,18 @@ For variables on the heap (size unknown at compile time), we need to allocate an
 For `String` type:
 
 - `String::from`'s implementation requests the memory it needs
-- When a `String` type variable goes out of scope, Rust calls the special function `drop` for us. 
+- When a `String` type variable goes out of scope, Rust calls the special function `drop` for us.
   - It's where the author of `String` can put the code to return the memory.
   - Rust calls `drop` automatically at the closing curly bracket.
-  - This pattern is also called *Resource Acquisition is Initialization (RAII)* in C++. 
+  - This pattern is also called _Resource Acquisition is Initialization (RAII)_ in C++.
 
 #### Variables and Data Interacting with Move
 
-When you reassign variables on the heap, Rust makes a shallow copy of the first variable (copying the pointer, length, and capacity without copying the data) and invalidates it. This is known as a *move*.
+When you reassign variables on the heap, Rust makes a shallow copy of the first variable (copying the pointer, length, and capacity without copying the data) and invalidates it. This is known as a _move_.
 
 Only valid variables get free'd when they go out of scope, effectively eliminating the double free problem.
 
-Rust's design choice of shallow copying means that any *automatic* copying can be assumed to be inexpensive in terms of runtime performance.
+Rust's design choice of shallow copying means that any _automatic_ copying can be assumed to be inexpensive in terms of runtime performance.
 
 #### Variables and Data Interacting with Clone
 
@@ -62,15 +62,15 @@ The rules when passing a value to a function are similar to those when assigning
 
 Returning values can also transfer ownership.
 
-Moving a variable into a function and returning ownership through return value is tedious. *References* let us use a value without transferring ownership.
+Moving a variable into a function and returning ownership through return value is tedious. _References_ let us use a value without transferring ownership.
 
 ### 4.2. References and Borrowing
 
-*Reference* is like a pointer, an address that can be followed to access the stored data; that data is owned by some other variable.
+_Reference_ is like a pointer, an address that can be followed to access the stored data; that data is owned by some other variable.
 
 Unlike a pointer, a reference is guaranteed to point to a valid value of a particular type for the life of that reference.
 
-*Borrowing* is the act of creating a reference: you just borrow the value, you don't own it.
+_Borrowing_ is the act of creating a reference: you just borrow the value, you don't own it.
 
 References are also immutable by default: you are not allowed to modify something we have a reference to.
 
@@ -80,7 +80,8 @@ Mutable references allow us to modify a borrowed value.
 
 One big restrition: you cannot have other references to that value. This helps prevent data races at compile time.
 
-A *data race* is similar to a race condition and happens when these three occur:
+A _data race_ is similar to a race condition and happens when these three occur:
+
 - Two or more pointers access the same data at the same time.
 - At least one of the pointers is being used to write to the data.
 - There's no mechanism being used to synchronize access to the data.
@@ -95,12 +96,12 @@ The Rust compiler guarantes that references will never be dangling references: i
 
 #### The Rules of References
 
-1. At any given time, you can have *either* one mutable reference *or* any number of immutable references.
+1. At any given time, you can have _either_ one mutable reference _or_ any number of immutable references.
 2. References must always be valid.
 
 ### 4.3. The Slice Type
 
-*Slices* are a kind of reference that refer to a contiguous sequence of elements in a collection. It does not have ownership.
+_Slices_ are a kind of reference that refer to a contiguous sequence of elements in a collection. It does not have ownership.
 
 Internally, the slice data structure stores the starting position and the length of the slice.
 
@@ -155,23 +156,26 @@ Can use `match` or `if let` to extract and use values from `Option<T>` type valu
 A package can contain multiple binary crates and optionally one library crate.
 
 Rust module system includes:
+
 - **Packages**: A Cargo feature that lets you build, test, and share crates
 - **Crates**: A tree of modules that produces a library or executable
 - **Modules** and **use**: Let you control the organization, scope, and privacy of paths
 - **Paths**: A way of naming an item, such as a struct, function, or module
 
-A *crate* is the smallest amount of code that the Rust compiler considers at a time. Crates can contain modules.
+A _crate_ is the smallest amount of code that the Rust compiler considers at a time. Crates can contain modules.
 
 A crate can come in a binary form or a library form:
+
 - Binary crates are programs compiled to an executable you can run (e.g., command-line program, server, etc.)
   - Each must have a `main` function
 - Library crates don't compile to an executable and don't have a `main` function
   - They define functionality intended to be shared with multiple projects
 
-The *crate root* is a source the the Rust compiler starts from and makes up the root module of your crate.
+The _crate root_ is a source the the Rust compiler starts from and makes up the root module of your crate.
 
-A *package* is a bundle of one or more crates that provides a set of functionality.
-- Contains a *Cargo.toml* file that describes how to build those crates
+A _package_ is a bundle of one or more crates that provides a set of functionality.
+
+- Contains a _Cargo.toml_ file that describes how to build those crates
   - Cargo is actually a package that contains the binary crate (command-line tool) used to build Rust code and a library crate that the binary crate depends on
 - Can contain as many binary crates as you like, but at most only one library crate
 
@@ -183,7 +187,7 @@ A package can have multiple binary crates by placing files in the `src/bin` dire
 
 ### 7.2. Defining Modules to Control Scope and Privacy
 
-*Paths* allow you to name items; the `use` keyword brings a path into scope; and the `pub` keyword makes items public.
+_Paths_ allow you to name items; the `use` keyword brings a path into scope; and the `pub` keyword makes items public.
 
 ## 8. Common Collections
 
@@ -199,8 +203,8 @@ UTF-8 is also the encoding used in Rust.
 
 Rust has two string types:
 
-- `&str`: the only string type in the core language - *string slices*, references to some UTF-8 encoded string data stored elsewhere (program binary, stack or heap). The string data actually lives somewhere else in memory (`str`) while we only use a "view" into it (`&str`). This is a *fat pointer* (pointer + associated metadata) consisting of the pointer to the first character in memory and the length of string.
-- `String`: *growable*, *mutable*, *owned*, *UTF-8 encoded* string type. Use it when you need to own or modify your string data. The fat pointer consists of the pointer to the first character of the string on the heap, the length of the string, and its capacity.
+- `&str`: the only string type in the core language - _string slices_, references to some UTF-8 encoded string data stored elsewhere (program binary, stack or heap). The string data actually lives somewhere else in memory (`str`) while we only use a "view" into it (`&str`). This is a _fat pointer_ (pointer + associated metadata) consisting of the pointer to the first character in memory and the length of string.
+- `String`: _growable_, _mutable_, _owned_, _UTF-8 encoded_ string type. Use it when you need to own or modify your string data. The fat pointer consists of the pointer to the first character of the string on the heap, the length of the string, and its capacity.
 
 String literals are string slices that live in the application binary.
 
@@ -243,12 +247,12 @@ Implement a trait on a type gives behaviors to types. Each type that implements 
 
 Traits can have default implementation for its methods. Types that implement these traits can then override these default implementations with their own, as long as they agree with the method signature.
 
-Use *trait bounds* to use traits as parameters.
+Use _trait bounds_ to use traits as parameters.
 
 ```rust
 pub fn notify(item: &impl Summary) {}
 
-// Syntactic sugar for 
+// Syntactic sugar for
 pub fn notify<T: Summary>(item: &T) {}
 
 trait Summary {}
@@ -283,7 +287,7 @@ impl<T: Display> ToString for T {}
 
 The Rust borrow checker runs at compile time and checks to make sure that all borrowed values and references are valid.
 
-Generic lifetime annotations describe the relationships between lifetimes of multiple references and how they relate to each other. Also known as *lifetimes*.
+Generic lifetime annotations describe the relationships between lifetimes of multiple references and how they relate to each other. Also known as _lifetimes_.
 
 ```rust
 fn longest<'a>(x: &'a str, y: &'a str) -> &'a str {}
@@ -339,6 +343,7 @@ fn it_works() -> Result<(), String> {}
 Ignore test with `#[ignore]`.
 
 Rustaceans think of tests in two categories:
+
 - Unit tests
   - Small
   - Focused
@@ -349,6 +354,7 @@ Rustaceans think of tests in two categories:
   - Test the library's public interface
 
 In Rust:
+
 - Unit tests
   - Live in the same file as project code
 - Integration tests
@@ -398,7 +404,7 @@ Rust follows the zero-cost abstraction principle - using higher-level abstractio
 
 The most common kind of pointer in Rust is a reference, indicated by the `&` symbol and borrows the value it points to. Only refer to data and have no overhead.
 
-*Smart pointers* are data structures that act like a pointer but have additional metadata and capabilities. They also own the data they point to in many cases, unlike references.
+_Smart pointers_ are data structures that act like a pointer but have additional metadata and capabilities. They also own the data they point to in many cases, unlike references.
 
 `String` and `Vec<T>` are smart pointers since they own some memory, allow you to manipulate it, have metadata and extra capabilities or guarantees.
 
@@ -417,7 +423,7 @@ Use cases:
 - When you have a large amount of data and you want to transfer ownership but ensure the data won't be copied when you do so
 - When you want to own a value and you care only that it's a type that implements a particular trait rather than being of a specific type
 
-*Recursive types* pose an issue because at compile time Rust needs to know how much space a type takes up. Because boxes have a known size, wrapping a recursive type in its definition would enable recursive types.
+_Recursive types_ pose an issue because at compile time Rust needs to know how much space a type takes up. Because boxes have a known size, wrapping a recursive type in its definition would enable recursive types.
 
 Rust computes the size of a non-recursive type by looking at each field. For enums, it's similar to unions in C, take the space it needs to store the largest variant. For structs, it's the sum of the struct fields.
 
@@ -438,7 +444,7 @@ When a `Box<T>` value goes out of scope, the heap data that the box is pointing 
 
 ### 15.2. Treating Smart Pointers Like Regular References with the `Deref` Trait
 
-The `Deref` trait allows you to customize the behavior of the *dereference* operator `*`. 
+The `Deref` trait allows you to customize the behavior of the _dereference_ operator `*`.
 
 ```rust
 use std::ops::Deref;
@@ -482,13 +488,13 @@ Rust automatically calls `drop` for us when our isntances went out of scope.
 
 You can drop a value early with `std::mem::drop`. One example is when using smart pointers that manage locks: you might want to force the `drop` method that releases the lock so that other code the same scope can acquire the lock.
 
-Rust doesn't allow you to call the `Drop` trait's `drop` method manually because Rust would still automatically call `drop` on the value when it goes out of scope. This would cause a *double free* error.
+Rust doesn't allow you to call the `Drop` trait's `drop` method manually because Rust would still automatically call `drop` on the value when it goes out of scope. This would cause a _double free_ error.
 
 The `drop` function in `std` is simply an empty function that takes ownership of the value and make it go out of scope, no magic compiler sauce.
 
 ### 15.4. `Rc<T>`, the Reference Counted Smart Pointer
 
-Enable multiple ownership explicitly by using the Rust type `Rc<T>`, an abbreviation for *reference counting*. The `Rc<T>` type keeps track of the number of references to a value to determine whether or not the value is still in use. If there are zero references to a value, the value can be cleaned up without any references becoming invalid.
+Enable multiple ownership explicitly by using the Rust type `Rc<T>`, an abbreviation for _reference counting_. The `Rc<T>` type keeps track of the number of references to a value to determine whether or not the value is still in use. If there are zero references to a value, the value can be cleaned up without any references becoming invalid.
 
 Use case: Allocate some data on the heap for multiple parts of the program to read and we can't determine which part will finish using the data last at compile time.
 
@@ -498,7 +504,7 @@ Convetion: Use `Rc::clone` instead of `.clone()` method although both behave the
 
 ### 15.5. `RefCell<T>` and the Interior Mutability Pattern
 
-*Interior mutability* is a design pattern in Rust that allows you to mutate data even if there are immutable references to that data. Normally this is disallowed by the borrow checker. The pattern uses `unsafe` code inside a data structure to bypass Rust mutation and borrowing rules. `unsafe` code is not checked for memory safety at compile time. Even so, we can still enforce those rules at runtime.
+_Interior mutability_ is a design pattern in Rust that allows you to mutate data even if there are immutable references to that data. Normally this is disallowed by the borrow checker. The pattern uses `unsafe` code inside a data structure to bypass Rust mutation and borrowing rules. `unsafe` code is not checked for memory safety at compile time. Even so, we can still enforce those rules at runtime.
 
 If you break the borrowing rules at runtime, your program will panic and exit. The reasoning for runtime checking instead of the default, compile-time checking is because certain properties of a program are impossible to detect using static analysis.
 
@@ -510,7 +516,7 @@ If you break the borrowing rules at runtime, your program will panic and exit. T
 
 In most OSs, an executed program's code is run in a process, and the OS will manage multiple processes at once.
 
-Within a program, you can also have independent parts that run simultaneously. These parts are run by *threads*. E.g., a web server can have multiple threads to respond to more than one request at a time.
+Within a program, you can also have independent parts that run simultaneously. These parts are run by _threads_. E.g., a web server can have multiple threads to respond to more than one request at a time.
 
 This improves program performance, but adds complexity.
 
@@ -518,7 +524,7 @@ This improves program performance, but adds complexity.
 - Deadlocks, where two threads are waiting for each other, preventing both from continuing
 - Bugs that happen only in certain situations and are hard to reproduce and fix reliably
 
-The Rust standard library uses a *1:1* model of thread implementation, a program uses one OS thread per one language thread. Other crates implement other models of threading that make different tradeoffs to the 1:1 model.
+The Rust standard library uses a _1:1_ model of thread implementation, a program uses one OS thread per one language thread. Other crates implement other models of threading that make different tradeoffs to the 1:1 model.
 
 There are two types of threads:
 
@@ -531,25 +537,25 @@ When the main thread of a Rust program completes, all spawned threads are shut d
 
 `thread::sleep` forces a thread to stop its execution for a short duration, allowing a different thread to run.
 
-Fix the problem of a spawned thread not running or ending prematurely by saving the return value of `thread::spawn` in a variable, whose type is `JoinHandle`. This is a owned value that, when we call the `join` method on it, will wait for its thread to finish. 
+Fix the problem of a spawned thread not running or ending prematurely by saving the return value of `thread::spawn` in a variable, whose type is `JoinHandle`. This is a owned value that, when we call the `join` method on it, will wait for its thread to finish.
 
-This method blocks the thread currently running until the thread represented by the handle terminates. *Blocking* means that the thread is prevented from performing work or exiting.
+This method blocks the thread currently running until the thread represented by the handle terminates. _Blocking_ means that the thread is prevented from performing work or exiting.
 
 We often use the `move` keyword with closures passed to `thread::spawn` because the closure will then take ownership of the values it uses from the environment, transferring ownership of those values from one thread to another. To use data from the main thread in the spawned thread, the spawned thread's closure must capture the values it needs.
 
 ### 16.2. Using Message Passing to Transfer Data Between Threads
 
-One popular approach to ensure safe concurrency is *message passing*, where threads or actors communicate by sending each other messages containing data.
+One popular approach to ensure safe concurrency is _message passing_, where threads or actors communicate by sending each other messages containing data.
 
 Go proverb:
 
 > Do not communicate by sharing memory; instead, share memory by communicating.
 
-Rust standard library accomplishes message-sending concurrency with an implementation of *channels*, a general programming concept by which data is sent from one thread to another.
+Rust standard library accomplishes message-sending concurrency with an implementation of _channels_, a general programming concept by which data is sent from one thread to another.
 
-A channel has two parts: a transmitter and a receiver. One part of your code calls methods on the transmitter, passing in the data you want to send and another part of your code is listening to the receiver for arriving messages. A channel is *closed* if either end is dropped.
+A channel has two parts: a transmitter and a receiver. One part of your code calls methods on the transmitter, passing in the data you want to send and another part of your code is listening to the receiver for arriving messages. A channel is _closed_ if either end is dropped.
 
-Create a new channel using the `mpsc::channel` function; `mpsc` stands for *multiple producer, single consumer*. This means a channel can have multiple *sending* ends that produce values but only one *receiving* end that consumes those values.
+Create a new channel using the `mpsc::channel` function; `mpsc` stands for _multiple producer, single consumer_. This means a channel can have multiple _sending_ ends that produce values but only one _receiving_ end that consumes those values.
 
 A thread can either send or receive. Spawn new threads to send. The spawned thread needs to own the transmitter to be able to send messages through the channel.
 
@@ -565,11 +571,11 @@ Another concurrency method would be for multiple threads to access the same shar
 
 Rust type system and ownership rules assist in getting the management of multiple ownership of a same memory location correct. Mutexes is one of the common concurrency primitives for shared memory.
 
-*Mutex* is an abbreviation for *mutual exclusion*, meaning only one thread can access a piece of data at any given time. 
+_Mutex_ is an abbreviation for _mutual exclusion_, meaning only one thread can access a piece of data at any given time.
 
-To access the data in a mutex, a thread must first signal that it wants access by asking to acquire the mutex's *lock*, a data structure that is part of the mutex that keeps track of who currently has exclusive access to the data. 
+To access the data in a mutex, a thread must first signal that it wants access by asking to acquire the mutex's _lock_, a data structure that is part of the mutex that keeps track of who currently has exclusive access to the data.
 
-In short, the mutex is *guarding* the data it holds via the locking system.
+In short, the mutex is _guarding_ the data it holds via the locking system.
 
 Two rules regarding mutexes:
 
@@ -587,7 +593,7 @@ This smart pointer:
 - implements `Deref` to point at its inner data
 - implements `Drop` to release the lock automatically when a `MutexGuard` goes out of scope.
 
-To solve multiple ownership in multithreaded scenarios, we could use `Rc<T>`. Unfortunately, `Rc<T>` is not safe to share across threads, thus not *thread-safe*. We have to use `Arc<T>`, atomic reference counting. This has the same API as `Rc<T>`.
+To solve multiple ownership in multithreaded scenarios, we could use `Rc<T>`. Unfortunately, `Rc<T>` is not safe to share across threads, thus not _thread-safe_. We have to use `Arc<T>`, atomic reference counting. This has the same API as `Rc<T>`.
 
 Thread safety comes with a performance penalty that you only want to pay when you really need to. Choose `Rc<T>` in single-threaded scenarios and `Arc<T>` in multithreaded ones.
 
@@ -617,7 +623,7 @@ Define a trait object:
 Box<dyn SomeTraitName>
 ```
 
-The `dyn` keyword means *dynamic dispatch*. Rust will ensure at compile any object in referenced by the trait object will implement the `SomeTraitName` trait.
+The `dyn` keyword means _dynamic dispatch_. Rust will ensure at compile any object in referenced by the trait object will implement the `SomeTraitName` trait.
 
 ```rust
 T: SomeTraitName
@@ -629,9 +635,9 @@ So `Vec<T> where T:SomeTraitName` can only contain one concrete type that implem
 
 If you'll only ever have homogenous collections, use generics and trait bounds because the definitions will be monomorphized at compile time to use concrete types. Trait objects have runtime performance implications to them.
 
-Recall monomorphization: the compiler generates nongeneric implementations of functions and methods for each concrete type that we use in place of a generic type parameter. This is *static dispatch*, the compiler knows what methods you're calling at compile time.
+Recall monomorphization: the compiler generates nongeneric implementations of functions and methods for each concrete type that we use in place of a generic type parameter. This is _static dispatch_, the compiler knows what methods you're calling at compile time.
 
-*Dynamic dispatch* is when the compiler does not know what methods you're calling at compile time. In these cases, the compiler emits code that at runtime will figure which method to call.
+_Dynamic dispatch_ is when the compiler does not know what methods you're calling at compile time. In these cases, the compiler emits code that at runtime will figure which method to call.
 
 When using trait objects, Rust uses the pointers inside the trait object to know which method to call, which incurs a runtime cost.
 
@@ -645,9 +651,9 @@ Encoding state into the type system is more ergonormic in Rust compared than pur
 
 ### 19.5. Macros
 
-Macros are a way of writing code that writes other code, which is known as *metaprogramming*. In other words, code-to-code transformation.
+Macros are a way of writing code that writes other code, which is known as _metaprogramming_. In other words, code-to-code transformation.
 
-Macros like `vec!` or `println!` expands to more code than you write manually. 
+Macros like `vec!` or `println!` expands to more code than you write manually.
 
 It reduces the amount of code you have to write and maintain, like functions. Unlike functions:
 
@@ -655,7 +661,7 @@ It reduces the amount of code you have to write and maintain, like functions. Un
 - Macros expand before the program finishes compiling while functions are called at runtime
 - More powerful than functions, in exchange for more complexity
 
-Rust has two types of macros: *declarative* and *procedural*.
+Rust has two types of macros: _declarative_ and _procedural_.
 
 #### Declarative Macros with `macro_rules!` for General Metaprogramming
 
@@ -671,7 +677,7 @@ Written more like functions, take code as input, operate on that code, produce c
 
 ## 20. Final Project: Building a Multithreaded Web Server
 
-You can improve the throughput of a web server with a thread pool. A *thread pool* is a group of spawned threads that are waiting and ready to handle a task.
+You can improve the throughput of a web server with a thread pool. A _thread pool_ is a group of spawned threads that are waiting and ready to handle a task.
 
 When the program receives a new task, it assigns one of the threads in the pool to the task, and that thread will process the task. The remaining threads in the pool are available to handle any other tasks that omein while the first thread is processing. When the first thread is done processing its task, it returned to the pool of idle threads, ready to handle a new task.
 
@@ -681,7 +687,7 @@ For a web server with a thread pool, we'll have a fixed number of threads waitin
 
 If each thread is busy responding, incoming requests will stil back up in the queue, but we've increased the number of threads before reaching that point.
 
-Other options to improve the throughput of a web server are the *fork/join model*, the *single-thread async I/O model*, or the *multi-threaded async I/O model*.
+Other options to improve the throughput of a web server are the _fork/join model_, the _single-thread async I/O model_, or the _multi-threaded async I/O model_.
 
 ## 21. Appendix
 

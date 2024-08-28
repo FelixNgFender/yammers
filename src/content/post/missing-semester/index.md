@@ -155,7 +155,7 @@ diff <(ls foo) <(ls bar)
 
 ### General scripting tips
 
-Scripts are not necessarily written in `bash`. They can be written in any language. `bash` is just a common choice because it is available on most systems. 
+Scripts are not necessarily written in `bash`. They can be written in any language. `bash` is just a common choice because it is available on most systems.
 
 The shebang `#!` is used to specify the interpreter for the script. It is followed by the path to the interpreter.
 
@@ -216,7 +216,7 @@ Typing the up arrow key will cycle through the history of commands. `Ctrl + R` w
 
 ### Philosophy of Vim
 
-Vim is a *modal* text editor: it has different modes for inserting text vs. manipulating text.
+Vim is a _modal_ text editor: it has different modes for inserting text vs. manipulating text.
 
 Vim is programmable and Vim's interface itself is a programming language. It is a language for editing text.
 
@@ -400,7 +400,7 @@ Most regular expressions are usually surrounded by `/` characters.
 
 #### Killing a process
 
-When you are executing a command, your shell is using *signals* to communicate information to the process. When a process receives a signal, it stops its execution, deals with the signal and potentially changes of the flow of execution based on the information that the signal delivered. That's why signals are also called *software interrupts*.
+When you are executing a command, your shell is using _signals_ to communicate information to the process. When a process receives a signal, it stops its execution, deals with the signal and potentially changes of the flow of execution based on the information that the signal delivered. That's why signals are also called _software interrupts_.
 
 - `Ctrl + C` sends the `SIGINT` signal to the process. This signal is used to interrupt a process.
 - `Ctrl + \` sends the `SIGQUIT` signal to the process. This signal is used to quit a process and dump core.
@@ -427,7 +427,8 @@ When you are executing a command, your shell is using *signals* to communicate i
 Terminal multiplexers like `tmux` allow you to multiplex terminal windows using panes and tabs for interaction with multiple shell sessions.
 
 `tmux` has the following hierarchy of objects:
-- **Sessions** - an independent workspace with one or more *windows*
+
+- **Sessions** - an independent workspace with one or more _windows_
   - `tmux` starts a new session
   - `tmux new -s <session-name>` starts a new session with a name
   - `tmux ls` lists all sessions
@@ -458,11 +459,12 @@ On shell startup, it will read many files to load its configuration.
 
 - `bash` - `~/.bashrc`, `~/.bash_profile`
 - `git` - `~/.gitconfig`
-- `vim` - `~/.vimrc`, `~/.vim` directory 
+- `vim` - `~/.vimrc`, `~/.vim` directory
 - `ssh` - `~/.ssh/config`
 - `tmux` - `~/.tmux.conf`
 
 Organize your dotfiles by placing them in their own version-controlled directory, and **symlinked** into place using a script. Benefits are:
+
 - Easy installation: if you log in to a new machine, applying your customizations will only take a minute.
 - Portability: your tools will work the same way everywhere.
 - Synchronization: you can update your dotfiles anywhere and keep them all in sync.
@@ -520,7 +522,7 @@ You can configure SSH to use specific settings for specific hosts. This is done 
 ### Shells & Frameworks
 
 - `zsh` - superset of `bash`, with more features and better defaults
-- `fish` - friendly interactive shell 
+- `fish` - friendly interactive shell
 
 Frameworks can improve shell programs by providing additional features and shortcuts.
 
@@ -554,7 +556,7 @@ Make logs more readable with color codes. Terminals support ANSI escape codes fo
 
 #### Third party logs
 
-Client side error messages might not be enough when detecting issues in larger software systems. 
+Client side error messages might not be enough when detecting issues in larger software systems.
 
 Most systems write their logs somewhere in the system. In UNIX systems, it is common for programs to write their logs under `/var/log`.
 
@@ -593,9 +595,9 @@ Profilers and monitoring tools help you understand which parts of your program a
 
 Wall clock time can be misleading since the computer might be running other proicesses at the same time or waiting for events to happen. It's important for tools to make a distinction between Real, User, and System time:
 
-- *Real* - Wall clock elapsed time from start to finish of the program, including time taken by other processes and time taken while blocked (e.g., waiting for I/O or network)
-- *User* - amount of time spent in the CPU running user code
-- *System* - amount of time spent in the CPU running kernel code
+- _Real_ - Wall clock elapsed time from start to finish of the program, including time taken by other processes and time taken while blocked (e.g., waiting for I/O or network)
+- _User_ - amount of time spent in the CPU running user code
+- _System_ - amount of time spent in the CPU running kernel code
 
 In general, User + Sys tells you how much time your process actually spent in the CPU.
 
@@ -603,7 +605,7 @@ In general, User + Sys tells you how much time your process actually spent in th
 
 ##### CPU
 
-Most common type. Two main types of CPU profiles: *tracing* and *sampling*.
+Most common type. Two main types of CPU profiles: _tracing_ and _sampling_.
 
 - Tracing profilers keep track of every function call
 - Sampling profilers probe the program periodically and record the stack trace
@@ -656,13 +658,13 @@ Sometimes, black box profiling is all you need.
 
 ## Lecture 8: Metaprogramming
 
-Metaprogramming is a collective term for a set of things about the *process* of writing code rather than the code itself. It can refer to systems for building and testing code, and for managing dependencies. It can also mean "programs that operate on programs".
+Metaprogramming is a collective term for a set of things about the _process_ of writing code rather than the code itself. It can refer to systems for building and testing code, and for managing dependencies. It can also mean "programs that operate on programs".
 
 ### Build systems
 
 For most projects, there is a "build process", which might have many steps and many branches, to perform to go from inputs to outputs.
 
-For most build systems, there are a number of *dependencies*, a number of *targets*, and *rules* for going from one to the other.
+For most build systems, there are a number of _dependencies_, a number of _targets_, and _rules_ for going from one to the other.
 
 - A target is specified
 - The build system finds all the transitive dependencies of the target
@@ -687,37 +689,37 @@ Dependencies might be:
 - system packages (like `openssl`)
 - programming language libraries (like `matplotlib`)
 
-These days, most dependencies will be available through a centralized *repository* of dependencies that provides a convenient installation mechanism.
+These days, most dependencies will be available through a centralized _repository_ of dependencies that provides a convenient installation mechanism.
 
 - `apt` - package manager for Debian-based systems
 - RubyGems - package manager for Ruby libraries
 - PyPi - package manager for Python libraries
 - Arch User Repository - community-driven package manager for Arch Linux
 
-One common aspect of these package managers is *versioning*.
+One common aspect of these package managers is _versioning_.
 
 A major benefit of versioning is to help ensure software keeps working.
 
-*Semantic versioning* is a versioning scheme helps to communicate the nature of changes in a new version. Every version number has three parts: `MAJOR.MINOR.PATCH`.
+_Semantic versioning_ is a versioning scheme helps to communicate the nature of changes in a new version. Every version number has three parts: `MAJOR.MINOR.PATCH`.
 
 - If a new release does not change the public-facing API, increase the patch version
-- If you *add* to your API in a backwards-compatible way, increase the minor version
-- If you *change* your API in a backwards-incompatible way, increase the major version
+- If you _add_ to your API in a backwards-compatible way, increase the minor version
+- If you _change_ your API in a backwards-incompatible way, increase the major version
 
 This unlocks some major advantages:
 
 - If a projects depends on a library, it should be safe to use the latest release with the same major version number as the one you started with
 - Prevents you from accidentally upgrading to a version that breaks your code
 
-In dependency management systems, *lock file* is a file that lists the exact version of each dependency in a project. Usually, an explicit update command is required to upgrade to newer versions of your dependencies, essentially updating the project's lock file.
+In dependency management systems, _lock file_ is a file that lists the exact version of each dependency in a project. Usually, an explicit update command is required to upgrade to newer versions of your dependencies, essentially updating the project's lock file.
 
-Having a lock file helps: 
+Having a lock file helps:
 
 - Avoid unnecessary recompiles
 - Having reproducible builds
 - Not automatically updating to the latest version (which may be broken)
 
-An extreme version of this is *vendoring*, where you copy the source code of your dependencies into your project. This is a good way to ensure that your project will always build and introduce your own changes, but you have to explicitly pull in any updates from the upstream maintainers over time.
+An extreme version of this is _vendoring_, where you copy the source code of your dependencies into your project. This is a good way to ensure that your project will always build and introduce your own changes, but you have to explicitly pull in any updates from the upstream maintainers over time.
 
 ### Continuous integration systems
 
@@ -747,7 +749,7 @@ Daemons are background processes that run on a system. They are usually started 
 
 ### FUSE
 
-FUSE (Filesystem in Userspace) is a software interface for Unix and Unix-like computer operating systems that lets non-privileged users create their own file systems without editing kernel code. 
+FUSE (Filesystem in Userspace) is a software interface for Unix and Unix-like computer operating systems that lets non-privileged users create their own file systems without editing kernel code.
 
 This is achieved by running file system code in user space while the FUSE module provides only a "bridge" to the actual kernel interfaces.
 

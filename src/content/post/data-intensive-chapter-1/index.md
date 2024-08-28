@@ -16,6 +16,7 @@ tags: ["books", "systems", "learning-notes", "data-intensive", "tl;dr"]
 Main challenges of data-intensive applications are volume, complexity, and speed.
 
 Standard building blocks for a data-intensive application:
+
 - Databases: Store data so that they, or another application, can find it again later
 - Caches: Remember the results of an expensive operation, to speed up reads
 - Search indexes: Allow users to search data by keyword or filter it in various ways
@@ -55,6 +56,7 @@ Bugs lie dormant for a long time until they are triggered by an unusual set of c
 ### Human Errors
 
 Minimizes human errors by:
+
 - Design systems in a way that minimizes opportunities for error.
 - Decouple the places where people make the most mistakes from the places where they can cause failures.
 - Test thoroughly at all levels, from unit tests to whole-system integration tests and manual tests.
@@ -72,7 +74,7 @@ Describes a system's ability to cope with increased load.
 
 ### Describing Load
 
-Load can be described with a few *load parameters*. The choice of parameters depends on the architecture of the system. They can be:
+Load can be described with a few _load parameters_. The choice of parameters depends on the architecture of the system. They can be:
 
 - Requests per second to a web server
 - Ratio of reads to writes in a database
@@ -90,24 +92,24 @@ Since response time can vary a lot, it's common to think of it as a distribution
 
 Average response time is not good in telling the "typical" response time, it does not tell you how many users actually experienced that delay. Usually it is better to use percentiles.
 
-The median is a.k.a. the 50th percentile, and sometimes abbreviated as *p50*. Same for *p95*, *p99*, and *p999*.
+The median is a.k.a. the 50th percentile, and sometimes abbreviated as _p50_. Same for _p95_, _p99_, and _p999_.
 
 High percentile of response times, a.k.a. tail latencies, are important because they directly affect UX of the service.
 
 Amazon describes time requirements for internal services in terms of p999 because the customers with the slowest requests are often those with the most data because they have made many purchases - and they are the most valuable customers.
 
-Percentiles are often used in *service level objectives* (SLOS) and *service level agreements* (SLAs), contracts that define the expected performance and availability of a service.
+Percentiles are often used in _service level objectives_ (SLOS) and _service level agreements_ (SLAs), contracts that define the expected performance and availability of a service.
 
-Queuing delays can be a significant factor in response time. As a server can only process a limited number of requests in parallel (number of CPU cores, etc.) before subsequent requests are held up, *head-of-line blocking* can occur. Processing time may be small, but the client will see a slow overall response time. This is why it's important to monitor response times on the client side.
+Queuing delays can be a significant factor in response time. As a server can only process a limited number of requests in parallel (number of CPU cores, etc.) before subsequent requests are held up, _head-of-line blocking_ can occur. Processing time may be small, but the client will see a slow overall response time. This is why it's important to monitor response times on the client side.
 
 ### Approaches for Coping with Load
 
 - **Scaling up** (vertical scaling): Moving to a more powerful machine.
 - **Scaling out** (horizontal scaling): Distributing the load across multiple smaller machines.
 
-Distributing load across multiple machines is a.k.a. *shared-nothing* architecture. It is a common approach to combine two approaches: distribute the load across several fairly powerful machines over a large number of small virtual machines.
+Distributing load across multiple machines is a.k.a. _shared-nothing_ architecture. It is a common approach to combine two approaches: distribute the load across several fairly powerful machines over a large number of small virtual machines.
 
-Some systems are *elastic*. They can automatically add computing resources when they detect a load increase, and remove resources when the load decreases.
+Some systems are _elastic_. They can automatically add computing resources when they detect a load increase, and remove resources when the load decreases.
 
 Since scaling stateful services is harder than scaling stateless services, it is common to scale up your database until scaling cost or high-availability requirements force you to make it distributed.
 
@@ -122,8 +124,9 @@ We should design software that minimizes pain during maintenance. Three design p
 ### Operability: Making Life Easy for Operations
 
 > Good operations can often work around the limitations of bad (or incomplete) software, but good software cannot run reliably with bad operations.
- 
+
 Responsibilities of operations teams:
+
 - System health monitoring and incident response.
 - Tracking down the cause of problems.
 - Keeping software and platforms up to date.
@@ -136,6 +139,7 @@ Responsibilities of operations teams:
 - Preserving the organization's knowledge about the system.
 
 Data systems can do various things to make routine tasks easy, including:
+
 - Providing visibility into the runtime behavior and internals of the system, with good monitoring.
 - Providing good support for automation and integration with standard tools.
 - Avoiding dependency on individual machines, so that failures of an individual machine can be tolerated.
@@ -147,6 +151,7 @@ Data systems can do various things to make routine tasks easy, including:
 ### Simplicity: Managing Complexity
 
 Possible symptoms of complexity:
+
 - Explosion of the state space.
 - Tight coupling of modules.
 - Tangled dependencies.
