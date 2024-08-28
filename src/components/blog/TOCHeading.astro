@@ -1,12 +1,12 @@
 ---
-import type { TocItem } from "@/utils";
+import type { TocItem } from "@/utils/generateToc";
 
 interface Props {
 	heading: TocItem;
 }
 
 const {
-	heading: { depth, slug, subheadings, text },
+	heading: { children, depth, slug, text },
 } = Astro.props;
 ---
 
@@ -17,9 +17,9 @@ const {
 		href={`#${slug}`}><span class="me-0.5">#</span>{text}</a
 	>
 	{
-		!!subheadings.length && (
+		!!children.length && (
 			<ul>
-				{subheadings.map((subheading) => (
+				{children.map((subheading) => (
 					<Astro.self heading={subheading} />
 				))}
 			</ul>

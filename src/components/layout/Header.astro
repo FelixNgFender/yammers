@@ -1,6 +1,5 @@
 ---
 import { menuLinks } from "@/site-config";
-
 import Search from "../Search.astro";
 import ThemeToggle from "../ThemeToggle.astro";
 
@@ -9,7 +8,6 @@ const url = new URL(Astro.request.url);
 
 <header class="group relative mb-28 flex items-center sm:ps-[4.5rem]" id="main-header">
 	<div class="flex sm:flex-col">
-		<!-- TODO: Change logo -->
 		<a
 			aria-current={url.pathname === "/" ? "page" : false}
 			class="inline-flex items-center grayscale hover:filter-none sm:relative sm:inline-block"
@@ -35,7 +33,7 @@ const url = new URL(Astro.request.url);
 					fill="#53C68C"></path>
 				<path d="M45.334 240 0 213.334v120L45.334 360V240Z" fill="#B04304"></path>
 			</svg>
-			<span class="text-xl font-bold sm:text-2xl">Felix Yammers On...</span>
+			<span class="text-xl font-bold sm:text-2xl">Astro Cactus</span>
 		</a>
 		<nav
 			aria-label="Main menu"
@@ -46,7 +44,7 @@ const url = new URL(Astro.request.url);
 				menuLinks.map((link) => (
 					<a
 						aria-current={url.pathname === link.path ? "page" : false}
-						class="px-4 py-4 sm:py-0 sm:hover:underline"
+						class="px-4 py-4 underline-offset-2 sm:py-0 sm:hover:underline"
 						data-astro-prefetch
 						href={link.path}
 					>
@@ -100,26 +98,20 @@ const url = new URL(Astro.request.url);
 </header>
 
 <script>
-	import { toggleClass } from "@/utils";
+	import { toggleClass } from "@/utils/domElement";
 
 	class MobileNavBtn extends HTMLElement {
-		private headerEl: HTMLElement;
-		private menuOpen: boolean;
-		private mobileButtonEl: HTMLButtonElement;
+		#menuOpen: boolean = false;
 
-		toggleMobileMenu = () => {
-			toggleClass(this.headerEl, "menu-open");
-			this.menuOpen = !this.menuOpen;
-			this.mobileButtonEl.setAttribute("aria-expanded", this.menuOpen.toString());
-		};
+		connectedCallback() {
+			const headerEl = document.getElementById("main-header")!;
+			const mobileButtonEl = this.querySelector<HTMLButtonElement>("button");
 
-		constructor() {
-			super();
-			this.headerEl = document.getElementById("main-header")!;
-			this.mobileButtonEl = this.querySelector("button") as HTMLButtonElement;
-			this.menuOpen = false;
-
-			this.mobileButtonEl.addEventListener("click", this.toggleMobileMenu);
+			mobileButtonEl?.addEventListener("click", () => {
+				if (headerEl) toggleClass(headerEl, "menu-open");
+				this.#menuOpen = !this.#menuOpen;
+				mobileButtonEl.setAttribute("aria-expanded", this.#menuOpen.toString());
+			});
 		}
 	}
 

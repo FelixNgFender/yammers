@@ -4,6 +4,7 @@ import { Icon } from "astro-icon/components";
 /** 
 	Uses https://www.astroicon.dev/getting-started/
 	Find icons via guide: https://www.astroicon.dev/guides/customization/#open-source-icon-sets
+	Only installed pack is: @iconify-json/mdi
 */
 const socialLinks: {
 	friendlyName: string;
@@ -13,41 +14,25 @@ const socialLinks: {
 }[] = [
 	{
 		friendlyName: "Github",
-		link: "https://github.com/FelixNgFender",
+		link: "https://github.com/chrismwilliams/astro-cactus",
 		name: "mdi:github",
-	},
-	{
-		friendlyName: "X",
-		link: "https://twitter.com/felixcantcode",
-		name: "mdi:twitter",
-	},
-	{
-		friendlyName: "LinkedIn",
-		link: "https://www.linkedin.com/in/felixngfender/",
-		name: "mdi:linkedin",
-	},
-	{
-		friendlyName: "email",
-		isWebmention: true,
-		link: "mailto:ngthinh302@gmail.com",
-		name: "mdi:email",
 	},
 ];
 ---
 
-<div class="flex flex-wrap items-end gap-x-4">
+<div class="flex flex-wrap items-end gap-x-2">
 	<p>Find me on</p>
 	<ul class="flex flex-1 items-center gap-x-2 sm:flex-initial">
 		{
 			socialLinks.map(({ friendlyName, isWebmention, link, name }) => (
 				<li class="flex">
 					<a
-						class="inline-block p-1 sm:hover:text-link"
+						class="inline-block sm:hover:text-link"
 						href={link}
-						rel={`noopener noreferrer ${isWebmention ? "me authn" : ""}`}
+						rel={`noreferrer ${isWebmention ? "me authn" : ""}`}
 						target="_blank"
 					>
-						<Icon aria-hidden="true" class="h-6 w-6" focusable="false" name={name} />
+						<Icon aria-hidden="true" class="h-8 w-8" focusable="false" name={name} />
 						<span class="sr-only">{friendlyName}</span>
 					</a>
 				</li>
