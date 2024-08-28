@@ -1,7 +1,7 @@
 ---
-import aboutImg from "@/assets/about-astro.png";
-import PageLayout from "@/layouts/Base.astro";
 import { Image } from "astro:assets";
+import PageLayout from "@/layouts/Base.astro";
+import aboutImg from "./_about.jpg";
 
 const meta = {
 	description: "Felix, an indie developer who builds with web technologies.",
@@ -12,7 +12,7 @@ const meta = {
 <PageLayout meta={meta}>
 	<div class="space-y-6">
 		<h1 class="title">About</h1>
-		<p>Hi, I’m Felix. I'm an indie developer and I build with web technologies.</p>
+		<p>Hi, I’m Felix. I code, play guitar, hike, and weightlift.</p>
 		<div class="flex justify-center">
 			<Image
 				alt="Felix admiring a Chinese hotpot"
