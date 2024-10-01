@@ -13,6 +13,8 @@ tags: ["cli"]
 
 Windows Terminal fits my setup and workflow better than `tmux`.
 
+<!-- TODO: Fix dark mode -->
+
 | Action                | Shortcut                                   |
 | --------------------- | ------------------------------------------ |
 | Vertical split        | <kbd>Alt+Shift++</kbd>                     |
