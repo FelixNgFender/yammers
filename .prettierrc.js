@@ -1,6 +1,7 @@
 /** @type {import("@types/prettier").Options} */
 module.exports = {
 	printWidth: 100,
+	prosewrap: "always",
 	semi: true,
 	singleQuote: false,
 	tabWidth: 2,
@@ -14,9 +15,10 @@ module.exports = {
 			},
 		},
 		{
-			files: ["*.mdx", "*.md"],
+			files: ["**/*.mdx", "**/*.md"],
 			options: {
 				printWidth: 80,
+				proseWrap: "always",
 			},
 		},
 	],
