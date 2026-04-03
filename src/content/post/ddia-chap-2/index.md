@@ -597,7 +597,7 @@ There are many more data models:
 > forms, but the distinctions are of little practical interest. As a rule of
 > thumb, if you’re duplicating values that could be stored in just one place,
 > the schema is not normalized.
-
+>
 > Foreign key constraints allow you to restrict modifications, but such
 > constraints are not required by the relational model. Even with constraints,
 > joins on foreign keys are performed at query time.

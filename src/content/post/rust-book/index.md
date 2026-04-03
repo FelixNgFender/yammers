@@ -1,5 +1,5 @@
 ---
-title: "TL;DR: The Rust Programming Language"
+title: "The Rust Programming Language"
 description: "Learning notes from The Rust Programming Language book"
 publishDate: "24 Jun 2024"
 coverImage:
@@ -8,8 +8,6 @@ coverImage:
 ogImage: "./rust-book.png"
 tags: ["books", "systems", "learning-notes", "rust", "tl;dr"]
 ---
-
-# The Rust Programming Language
 
 ## 4. Understanding Ownership
 

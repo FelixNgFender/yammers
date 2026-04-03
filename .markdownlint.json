@@ -1,0 +1,9 @@
+{
+	"MD033": {
+		"allowed_elements": ["CardGrid", "Card"]
+	},
+	"MD013": {
+		"tables": false,
+		"code_blocks": false
+	}
+}

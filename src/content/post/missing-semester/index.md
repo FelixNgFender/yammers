@@ -6,8 +6,6 @@ publishDate: "20 May 2024"
 tags: ["courses", "cli", "learning-notes"]
 ---
 
-# The Missing Semester of Your CS Education
-
 ## Lecture 1: Course Overview + The Shell
 
 The shell is a program that takes commands from the keyboard and gives them to
@@ -112,8 +110,8 @@ mcd () {
 ```
 
 Here `$1` is the first argument passed to the function. `bash` uses special
-variables to refer to arguments, error codes, and other relevant variables. Full
-list is [here](https://tldp.org/LDP/abs/html/special-chars.html).
+variables to refer to arguments, error codes, and other relevant variables.
+[Full list](https://tldp.org/LDP/abs/html/special-chars.html).
 
 - `$0` is the name of the script
 - `$1` to `$9` are the first 9 arguments to the script
@@ -788,7 +786,7 @@ what its actual resource consumption is.
 
 Artificially impose loads on the maching using the `stress` command.
 
-#### Specialized tools
+#### Profiling tools
 
 Sometimes, black box profiling is all you need.
 
