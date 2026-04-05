@@ -1,5 +1,5 @@
 ---
-title: "LazyVim 2080: 80% Features from 20% of Keybindings"
+title: "LazyVim 8020: 80% Features from 20% of Keybindings"
 description: "A list of LazyVim keybinds ranked by usefulness after the basics."
 publishDate: "3 April 2026"
 coverImage:
